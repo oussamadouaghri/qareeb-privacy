@@ -394,11 +394,35 @@
       'DZ': '🇩🇿 Algérie',
       'TN': '🇹🇳 Tunisie',
       'EG': '🇪🇬 Égypte',
+      'IQ': '🇮🇶 Irak',
+      'JO': '🇯🇴 Jordanie',
+      'LB': '🇱🇧 Liban',
+      'LY': '🇱🇾 Libye',
       'US': '🇺🇸 États-Unis (USA)',
       'GB': '🇬🇧 Royaume-Uni',
       'FR': '🇫🇷 France',
+      'DE': '🇩🇪 Allemagne',
+      'ES': '🇪🇸 Espagne',
+      'IT': '🇮🇹 Italie',
+      'CA': '🇨🇦 Canada',
+      'TR': '🇹🇷 Turquie',
       'GLOBAL': '🌐 International'
     };
+
+    function getCountryLabel(code) {
+      if (!code || code === 'GLOBAL') return '🌐 International';
+      const upper = code.toUpperCase();
+      if (flagMap[upper]) return flagMap[upper];
+      try {
+        const codePoints = upper.split('').map(c => 127397 + c.charCodeAt());
+        const flag = String.fromCodePoint(...codePoints);
+        const regionNames = new Intl.DisplayNames(['fr'], { type: 'region' });
+        const name = regionNames.of(upper) || upper;
+        return `${flag} ${name} (${upper})`;
+      } catch(e) {
+        return `🏳️ ${upper}`;
+      }
+    }
 
     function verifyPin() {
       const pin = document.getElementById('pinInput').value.trim();
@@ -590,7 +614,7 @@
       const sorted = Object.entries(countryData).sort((a, b) => (b[1].sessions || b[1].installs) - (a[1].sessions || a[1].installs));
 
       sorted.forEach(([code, data]) => {
-        const countryLabel = flagMap[code] || `🏳️ ${code}`;
+        const countryLabel = getCountryLabel(code);
         const total = data.sessions || (data.installs + data.returning);
         const ratio = (data.installs + data.returning) > 0 ? Math.round((data.returning / (data.installs + data.returning)) * 100) : 0;
         const share = Math.round((total / totalAllSessions) * 100);
@@ -669,7 +693,7 @@
 
       // Sort by launch count / recent
       users.forEach(u => {
-        const flagName = flagMap[u.country] || u.country;
+        const flagName = getCountryLabel(u.country);
         const statusBadge = u.isNew && u.launchCount <= 1
           ? `<span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">🟢 Nouveau (1er Install)</span>`
           : `<span class="px-2.5 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">🔵 Fidèle (${u.launchCount} visites)</span>`;
@@ -739,7 +763,7 @@
       const ctx = document.getElementById('countryInstallsChart').getContext('2d');
       if (countryInstallsChart) countryInstallsChart.destroy();
 
-      const labels = sortedCountryEntries.map(([code]) => flagMap[code] || code);
+      const labels = sortedCountryEntries.map(([code]) => getCountryLabel(code));
       const data = sortedCountryEntries.map(([, d]) => d.installs || d.sessions || 0);
 
       countryInstallsChart = new Chart(ctx, {
