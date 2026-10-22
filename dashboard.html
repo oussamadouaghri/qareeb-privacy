@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Qareeb Live Analytics & Revenue Dashboard</title>
+  <title>Qareeb Enterprise Live Analytics & User Directory</title>
   <link rel="icon" href="icon.png" type="image/png" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,12 +23,6 @@
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
-            brand: {
-              50: '#fdf2f8',
-              500: '#ec4899',
-              600: '#db2777',
-              700: '#be185d',
-            },
             dark: {
               bg: '#090d16',
               card: '#0f172a',
@@ -57,17 +51,7 @@
     }
     .glass-card:hover {
       border-color: rgba(236, 72, 153, 0.3);
-      box-shadow: 0 15px 35px -10px rgba(236, 72, 153, 0.15);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .stat-glow-green {
-      text-shadow: 0 0 24px rgba(34, 197, 94, 0.45);
-    }
-    .stat-glow-pink {
-      text-shadow: 0 0 24px rgba(236, 72, 153, 0.45);
-    }
-    .stat-glow-cyan {
-      text-shadow: 0 0 24px rgba(6, 182, 212, 0.45);
     }
     .pulse-dot {
       animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
@@ -77,7 +61,6 @@
       50% { transform: scale(1.15); opacity: 0.4; }
       100% { transform: scale(0.95); opacity: 0.9; }
     }
-    /* Custom scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #090d16; }
     ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 999px; }
@@ -95,7 +78,7 @@
         </svg>
       </div>
       <h2 class="text-2xl font-bold text-white mb-1">Qareeb Control Center</h2>
-      <p class="text-xs text-slate-400 mb-6">Enter Admin Access PIN to view live revenue & telemetrics</p>
+      <p class="text-xs text-slate-400 mb-6">Enter Admin Access PIN to view user cohorts & live revenue</p>
       
       <input type="password" id="pinInput" maxlength="6" autofocus placeholder="••••" 
         class="w-full text-center text-3xl font-mono tracking-widest py-3 px-4 bg-slate-900/90 border border-slate-700 rounded-2xl text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/30 transition-all mb-4" />
@@ -124,9 +107,9 @@
           <div>
             <div class="flex items-center space-x-2">
               <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">Qareeb</span>
-              <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-pink-500/10 text-pink-400 border border-pink-500/20">LIVE ENGINE</span>
+              <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">COHORT ENGINE</span>
             </div>
-            <p class="text-xs text-slate-400 font-medium">Real-Time Mobile Telemetry & Ads</p>
+            <p class="text-xs text-slate-400 font-medium">Exact User Installs & Retention Analytics</p>
           </div>
         </div>
 
@@ -145,7 +128,7 @@
           </div>
 
           <!-- Refresh Button -->
-          <button onclick="fetchData()" id="refreshBtn" title="Refresh Live Data" class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-white/10 transition-all active:scale-95">
+          <button onclick="fetchAllData()" id="refreshBtn" title="Refresh Live Data" class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-white/10 transition-all active:scale-95">
             <svg id="refreshIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
             </svg>
@@ -169,226 +152,254 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-white/5">
         <div>
           <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
-            Executive Performance Overview
+            User Acquisition, Cohorts & Device Analytics
           </h1>
           <p class="text-xs sm:text-sm text-slate-400 mt-1">
-            Data sourced directly & securely via Firestore REST API with zero server cost ($0.00).
+            Exact tracking of new installs vs returning users, countries, device models & open frequency.
           </p>
         </div>
-        <div class="text-xs text-slate-500 font-mono flex items-center gap-2">
-          <span>Last sync:</span>
-          <span id="lastUpdated" class="text-slate-300 font-semibold">Just now</span>
+        <div class="flex items-center gap-3">
+          <!-- Currency switcher -->
+          <div class="flex items-center p-1 bg-slate-900/90 border border-white/10 rounded-xl text-xs font-mono font-semibold">
+            <button id="currUSD" onclick="setCurrency('USD')" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white">USD ($)</button>
+            <button id="currMAD" onclick="setCurrency('MAD')" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">MAD</button>
+            <button id="currSAR" onclick="setCurrency('SAR')" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">SAR (ريال)</button>
+          </div>
+          <div class="text-xs text-slate-500 font-mono hidden md:block">
+            Sync: <span id="lastUpdated" class="text-slate-300 font-semibold">Just now</span>
+          </div>
         </div>
       </div>
 
-      <!-- ================= KPI METRIC CARDS GRID ================= -->
+      <!-- ================= HERO METRIC CARDS GRID ================= -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
-        <!-- CARD 1: ESTIMATED REVENUE -->
-        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group">
+        <!-- CARD 1: NEW INSTALLS (FIRST TIME USERS) -->
+        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group border-emerald-500/20">
           <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
           <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Total Ad Revenue</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Nouveaux Installs (New)</span>
             <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-lg">
-              $
+              📥
             </div>
           </div>
           <div class="space-y-1">
-            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight stat-glow-green" id="metricRevenueUSD">$0.00</div>
-            <div class="text-sm font-semibold text-emerald-400 font-mono" id="metricRevenueMAD">≈ 0.00 MAD</div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricNewInstalls">0</div>
+            <div class="text-xs text-emerald-400/90 font-medium">1ère ouverture (First App Open)</div>
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-            <span>Calculated eCPM</span>
-            <span id="metricECPM" class="font-mono font-bold text-slate-200">$0.00</span>
+            <span>Part Nouveaux</span>
+            <span id="metricNewPercent" class="font-mono font-bold text-emerald-400">0%</span>
           </div>
         </div>
 
-        <!-- CARD 2: APP SESSIONS -->
+        <!-- CARD 2: RETURNING USERS (RETENTION) -->
+        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group border-indigo-500/20">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-400">Utilisateurs Fidèles (Returning)</span>
+            <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+              🔄
+            </div>
+          </div>
+          <div class="space-y-1">
+            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricReturning">0</div>
+            <div class="text-xs text-slate-400">Revenus 2+ fois dans l'app</div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+            <span>Taux de Rétention</span>
+            <span id="metricRetentionRate" class="font-mono font-bold text-indigo-300">0%</span>
+          </div>
+        </div>
+
+        <!-- CARD 3: TOTAL SESSIONS (ALL LAUNCHES) -->
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden group">
           <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
           <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">User Sessions</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Total Ouvertures (Launches)</span>
             <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
-              </svg>
+              🚀
             </div>
           </div>
           <div class="space-y-1">
-            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight stat-glow-cyan" id="metricSessions">0</div>
-            <div class="text-xs text-slate-400">App opens & foregrounds</div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricTotalSessions">0</div>
+            <div class="text-xs text-slate-400">Ch7al mn mra dkhlat l'app</div>
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-            <span>Target Market</span>
-            <span class="font-semibold text-cyan-300">GCC & Western</span>
+            <span>Moyenne / User</span>
+            <span id="metricAvgSessions" class="font-mono font-bold text-cyan-300">1.0x</span>
           </div>
         </div>
 
-        <!-- CARD 3: AD IMPRESSIONS & CTR -->
-        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl group-hover:bg-pink-500/20 transition-all"></div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-bold uppercase tracking-wider text-pink-400">Ad Impressions</span>
-            <div class="w-10 h-10 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-              </svg>
-            </div>
-          </div>
-          <div class="space-y-1">
-            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight stat-glow-pink" id="metricAdImpressions">0</div>
-            <div class="text-xs text-slate-400 flex items-center gap-1.5">
-              <span>Clicks: <b id="metricAdClicks" class="text-slate-200">0</b></span>
-              <span>•</span>
-              <span id="metricCTR" class="text-pink-400 font-semibold font-mono">0.0% CTR</span>
-            </div>
-          </div>
-          <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-            <span>Network</span>
-            <span class="font-semibold text-slate-200">Google AdMob</span>
-          </div>
-        </div>
-
-        <!-- CARD 4: ENGAGEMENT (MESSAGES & UNLOCKS) -->
-        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group">
+        <!-- CARD 4: AD REVENUE & ADMOB -->
+        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group border-amber-500/20">
           <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
           <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">App Engagement</span>
-            <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-              </svg>
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Revenus Publicitaires</span>
+            <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-bold">
+              💰
             </div>
           </div>
           <div class="space-y-1">
-            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricMessages">0</div>
-            <div class="text-xs text-slate-400">AI Chat Messages Exchanged</div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricRevenueMain">$0.00</div>
+            <div class="text-xs text-amber-400 font-mono font-semibold" id="metricRevenueSub">≈ 0.00 MAD</div>
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-            <span>VIP Unlocked Photos</span>
-            <span id="metricPhotos" class="font-mono font-bold text-amber-400">0</span>
+            <span>Impressions AdMob</span>
+            <span id="metricImpressions" class="font-mono font-bold text-slate-200">0</span>
           </div>
         </div>
 
       </div>
 
-      <!-- ================= CHARTS SECTION ================= -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-        <!-- GEO DISTRIBUTION CARD (2 COLUMNS) -->
-        <div class="glass-card rounded-3xl p-6 lg:col-span-2">
-          <div class="flex items-center justify-between mb-6">
-            <div>
-              <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                <svg class="w-5 h-5 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                Audience by Country
-              </h3>
-              <p class="text-xs text-slate-400">Live geographic distribution of users launching the app</p>
-            </div>
-            <span class="text-xs font-mono text-slate-400 bg-slate-900/80 px-2.5 py-1 rounded-lg border border-white/5">Auto-detected</span>
-          </div>
-
-          <div class="h-64 relative">
-            <canvas id="countryChart"></canvas>
-          </div>
-
-          <!-- Quick country tags table -->
-          <div id="countryList" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-white/5">
-            <!-- Dynamically populated -->
-          </div>
-        </div>
-
-        <!-- AD FORMAT PERFORMANCE (1 COLUMN) -->
-        <div class="glass-card rounded-3xl p-6">
-          <div class="flex items-center justify-between mb-6">
-            <div>
-              <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>
-                </svg>
-                Ad Inventory Breakdown
-              </h3>
-              <p class="text-xs text-slate-400">Impressions across formats</p>
-            </div>
-          </div>
-
-          <div class="h-64 relative flex items-center justify-center">
-            <canvas id="adFormatChart"></canvas>
-          </div>
-
-          <div class="space-y-2 mt-6 pt-6 border-t border-white/5 text-xs">
-            <div class="flex justify-between items-center text-slate-300">
-              <span class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span> Interstitial
-              </span>
-              <span id="adFormatInter" class="font-mono font-bold">0</span>
-            </div>
-            <div class="flex justify-between items-center text-slate-300">
-              <span class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span> Rewarded (Unlocks)
-              </span>
-              <span id="adFormatReward" class="font-mono font-bold">0</span>
-            </div>
-            <div class="flex justify-between items-center text-slate-300">
-              <span class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> Banner
-              </span>
-              <span id="adFormatBanner" class="font-mono font-bold">0</span>
-            </div>
-            <div class="flex justify-between items-center text-slate-300">
-              <span class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> App Open
-              </span>
-              <span id="adFormatAppOpen" class="font-mono font-bold">0</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ================= DETAILED SPECS / HEALTH FOOTER ================= -->
+      <!-- ================= COUNTRY LEVEL BREAKDOWN TABLE ================= -->
       <div class="glass-card rounded-3xl p-6">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="text-xl">🌍</span>
+              Détails par Pays (Installs, Nouveaux vs Fidèles & Fréquence)
+            </h2>
+            <p class="text-xs text-slate-400">Kula dawla ch7al ja mn user, wach jdid wla 9dim, w ch7al dkhlou mn mra</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-white/10 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                <th class="py-3 px-4">Pays (Country)</th>
+                <th class="py-3 px-4 text-center">📥 Nouveaux (Installs)</th>
+                <th class="py-3 px-4 text-center">🔄 Fidèles (Returning)</th>
+                <th class="py-3 px-4 text-center">🚀 Total Ouvertures</th>
+                <th class="py-3 px-4 text-center">📊 Ratio Fidélité</th>
+                <th class="py-3 px-4 text-right">Part d'Audience (%)</th>
+              </tr>
+            </thead>
+            <tbody id="countryTableBody" class="divide-y divide-white/5 text-sm">
+              <tr>
+                <td colspan="6" class="py-8 text-center text-slate-500 font-mono text-xs">Loading live country analytics...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= LIVE USER DIRECTORY & DEVICE COHORT ================= -->
+      <div class="glass-card rounded-3xl p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="text-xl">📱</span>
+              Tableau en Direct des Utilisateurs & Téléphones (Live Cohort Explorer)
+            </h2>
+            <p class="text-xs text-slate-400">Kula user b ID dyalo, l-ville dyalo, model d telephone, wach jdid wla la, w ch7al mn mra dkhoul</p>
+          </div>
+
+          <!-- Search & Filter Bar -->
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            <div class="relative">
+              <input type="text" id="userSearchInput" oninput="filterUserTable()" placeholder="Rechercher (ID, Pays, Ville, Modèle)..." 
+                class="w-64 py-2 px-3 pl-9 rounded-xl bg-slate-900 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pink-500 transition-all font-mono" />
+              <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
             </div>
-            <div>
-              <div class="text-sm font-bold text-white">Zero Server Cost Architecture ($0.00 Forever)</div>
-              <div class="text-xs text-slate-400">Firebase Firestore Spark Tier + GitHub Pages SSL. 100% Free & Unlimited scalability.</div>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-4 text-xs font-mono text-slate-400">
-            <div>Project: <span class="text-slate-200">radar-3d3bb</span></div>
-            <div>•</div>
-            <div>App Version: <span class="text-pink-400">v1.1.0</span></div>
+            <button onclick="downloadCSV()" class="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-white/10 text-xs font-semibold text-slate-200 flex items-center gap-1.5 transition-all">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              <span>Export CSV</span>
+            </button>
           </div>
         </div>
+
+        <!-- Users Table -->
+        <div class="overflow-x-auto max-h-[500px] overflow-y-auto">
+          <table class="w-full text-left border-collapse">
+            <thead class="sticky top-0 bg-[#0f172a] z-10">
+              <tr class="border-b border-white/10 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                <th class="py-3 px-4">User ID</th>
+                <th class="py-3 px-4">Localisation (Pays / Ville)</th>
+                <th class="py-3 px-4">Appareil (Device & OS)</th>
+                <th class="py-3 px-4 text-center">Statut (Jdid wla La)</th>
+                <th class="py-3 px-4 text-center">Nb d'Ouvertures (Visites)</th>
+                <th class="py-3 px-4 text-right">Dernière Activité</th>
+              </tr>
+            </thead>
+            <tbody id="userTableBody" class="divide-y divide-white/5 text-sm">
+              <tr>
+                <td colspan="6" class="py-12 text-center text-slate-500 font-mono text-xs">
+                  Aucun utilisateur n'a encore ouvert la nouvelle version. Les appareils s'afficheront ici en temps réel dès la première ouverture !
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= CHARTS: ACQUISITION & AD FORMATS ================= -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Chart 1: Acquisition by Country -->
+        <div class="glass-card rounded-3xl p-6">
+          <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+            <span>📊</span> Nouveaux Installs par Pays
+          </h3>
+          <p class="text-xs text-slate-400 mb-6">Comparatif exact des pays d'où proviennent les utilisateurs</p>
+          <div class="h-64 relative">
+            <canvas id="countryInstallsChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: New vs Returning Breakdown -->
+        <div class="glass-card rounded-3xl p-6">
+          <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+            <span>🔄</span> Ratio: Nouveaux (Installs) vs Fidèles (Returning)
+          </h3>
+          <p class="text-xs text-slate-400 mb-6">Comportement global de la base d'utilisateurs</p>
+          <div class="h-64 relative flex items-center justify-center">
+            <canvas id="cohortRatioChart"></canvas>
+          </div>
+        </div>
+
       </div>
 
     </main>
   </div>
 
-  <!-- ================= LOGIC SCRIPT ================= -->
+  <!-- ================= SCRIPT LOGIC ================= -->
   <script>
     const CORRECT_PIN = "2026";
     const FIRESTORE_PROJECT_ID = "radar-3d3bb";
     const FIRESTORE_API_KEY = "AIzaSyAoLg94P0jkFiTBEqAVWAl6qCiZIyNenLU";
-    const BASE_URL = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents/analytics`;
+    const BASE_DOCS_URL = `https://firestore.googleapis.com/v1/projects/${FIRESTORE_PROJECT_ID}/databases/(default)/documents/analytics`;
 
     let activeView = 'all'; // 'all' or 'today'
-    let countryChartInstance = null;
-    let adFormatChartInstance = null;
+    let currentCurrency = 'USD'; // 'USD', 'MAD', 'SAR'
+    let countryInstallsChart = null;
+    let cohortRatioChart = null;
+    let cachedUsersList = [];
+    let cachedLiveStats = {};
     let autoRefreshInterval = null;
 
-    // PIN Authentication
+    const flagMap = {
+      'SA': '🇸🇦 Arabie Saoudite (Saudi)',
+      'AE': '🇦🇪 Émirats (UAE)',
+      'KW': '🇰🇼 Koweït (Kuwait)',
+      'QA': '🇶🇦 Qatar',
+      'BH': '🇧🇭 Bahreïn',
+      'OM': '🇴🇲 Oman',
+      'MA': '🇲🇦 Maroc (Morocco)',
+      'DZ': '🇩🇿 Algérie',
+      'TN': '🇹🇳 Tunisie',
+      'EG': '🇪🇬 Égypte',
+      'US': '🇺🇸 États-Unis (USA)',
+      'GB': '🇬🇧 Royaume-Uni',
+      'FR': '🇫🇷 France',
+      'GLOBAL': '🌐 International'
+    };
+
     function verifyPin() {
       const pin = document.getElementById('pinInput').value.trim();
       if (pin === CORRECT_PIN) {
@@ -411,23 +422,29 @@
       const app = document.getElementById('dashboardApp');
       app.classList.remove('opacity-0');
       app.classList.add('opacity-100');
-      fetchData();
+      fetchAllData();
       if (!autoRefreshInterval) {
-        autoRefreshInterval = setInterval(fetchData, 15000); // live poll every 15s
+        autoRefreshInterval = setInterval(fetchAllData, 15000);
       }
     }
 
-    // Enter key listener on pin
     document.getElementById('pinInput').addEventListener('keyup', (e) => {
       if (e.key === 'Enter') verifyPin();
     });
 
-    // Check saved authentication
     window.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('qareeb_admin_auth') === 'true') {
         unlockUI();
       }
     });
+
+    function setCurrency(curr) {
+      currentCurrency = curr;
+      document.getElementById('currUSD').className = curr === 'USD' ? "px-2.5 py-1 rounded-lg bg-emerald-600 text-white" : "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white";
+      document.getElementById('currMAD').className = curr === 'MAD' ? "px-2.5 py-1 rounded-lg bg-emerald-600 text-white" : "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white";
+      document.getElementById('currSAR').className = curr === 'SAR' ? "px-2.5 py-1 rounded-lg bg-emerald-600 text-white" : "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white";
+      renderRevenue(cachedLiveStats);
+    }
 
     function switchView(view) {
       activeView = view;
@@ -440,46 +457,7 @@
         btnToday.className = "px-3 py-1.5 rounded-lg bg-pink-600 text-white shadow-sm transition-all";
         btnAll.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all";
       }
-      fetchData();
-    }
-
-    function getDocName() {
-      if (activeView === 'all') return 'live_stats';
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      return `daily_${year}-${month}-${day}`;
-    }
-
-    async function fetchData() {
-      const icon = document.getElementById('refreshIcon');
-      icon.classList.add('animate-spin');
-
-      const docName = getDocName();
-      const url = `${BASE_URL}/${docName}?key=${FIRESTORE_API_KEY}`;
-
-      try {
-        const res = await fetch(url);
-        if (!res.ok) {
-          if (res.status === 404 && activeView === 'today') {
-            // No events yet today, show zero state
-            renderData({});
-          } else {
-            console.warn("Firestore fetch error:", res.status);
-          }
-        } else {
-          const json = await res.json();
-          renderData(json.fields || {});
-        }
-      } catch (err) {
-        console.error("Telemetry fetch failed:", err);
-      } finally {
-        setTimeout(() => {
-          icon.classList.remove('animate-spin');
-        }, 600);
-        document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
-      }
+      fetchAllData();
     }
 
     function parseVal(field) {
@@ -489,163 +467,317 @@
       return 0;
     }
 
-    function renderData(fields) {
-      const sessions = parseVal(fields.total_sessions);
+    async function fetchAllData() {
+      const icon = document.getElementById('refreshIcon');
+      icon.classList.add('animate-spin');
+
+      await Promise.all([fetchLiveStats(), fetchUsersList()]);
+
+      setTimeout(() => {
+        icon.classList.remove('animate-spin');
+      }, 600);
+      document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+    }
+
+    async function fetchLiveStats() {
+      let docName = 'live_stats';
+      if (activeView === 'today') {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        docName = `daily_${y}-${m}-${d}`;
+      }
+
+      const url = `${BASE_DOCS_URL}/${docName}?key=${FIRESTORE_API_KEY}`;
+      try {
+        const res = await fetch(url);
+        if (res.ok) {
+          const data = await res.json();
+          cachedLiveStats = data.fields || {};
+          renderLiveStats(cachedLiveStats);
+        } else {
+          if (res.status === 404 && activeView === 'today') {
+            cachedLiveStats = {};
+            renderLiveStats({});
+          }
+        }
+      } catch (e) {
+        console.error("Live stats error:", e);
+      }
+    }
+
+    function renderLiveStats(fields) {
+      const installs = parseVal(fields.total_installs);
+      const returning = parseVal(fields.total_returning);
+      const totalSessions = parseVal(fields.total_sessions);
       const impressions = parseVal(fields.total_ad_impressions);
-      const clicks = parseVal(fields.total_ad_clicks);
-      const revenueMicros = parseVal(fields.estimated_revenue_micros);
-      const messages = parseVal(fields.total_messages_sent);
-      const photos = parseVal(fields.total_photos_unlocked);
 
-      // Revenue Calculation
-      const revUsd = revenueMicros / 1000000.0;
-      const revMad = revUsd * 10.05; // 1 USD ~ 10.05 MAD approx
+      document.getElementById('metricNewInstalls').textContent = installs.toLocaleString();
+      document.getElementById('metricReturning').textContent = returning.toLocaleString();
+      document.getElementById('metricTotalSessions').textContent = totalSessions.toLocaleString();
+      document.getElementById('metricImpressions').textContent = impressions.toLocaleString();
 
-      document.getElementById('metricRevenueUSD').textContent = `$${revUsd.toFixed(2)}`;
-      document.getElementById('metricRevenueMAD').textContent = `≈ ${revMad.toFixed(2)} MAD`;
-      document.getElementById('metricSessions').textContent = sessions.toLocaleString();
-      document.getElementById('metricAdImpressions').textContent = impressions.toLocaleString();
-      document.getElementById('metricAdClicks').textContent = clicks.toLocaleString();
+      const newPercent = totalSessions > 0 ? Math.round((installs / totalSessions) * 100) : 0;
+      document.getElementById('metricNewPercent').textContent = `${newPercent}% des sessions`;
 
-      const ctr = impressions > 0 ? ((clicks / impressions) * 100).toFixed(1) : "0.0";
-      document.getElementById('metricCTR').textContent = `${ctr}% CTR`;
+      const retRate = (installs + returning) > 0 ? Math.round((returning / (installs + returning)) * 100) : 0;
+      document.getElementById('metricRetentionRate').textContent = `${retRate}% Taux Fidélité`;
 
-      const ecpm = impressions > 0 ? ((revUsd / impressions) * 1000).toFixed(2) : "0.00";
-      document.getElementById('metricECPM').textContent = `$${ecpm}`;
+      const avgPerUser = installs > 0 ? (totalSessions / installs).toFixed(1) : "1.0";
+      document.getElementById('metricAvgSessions').textContent = `${avgPerUser}x / user`;
 
-      document.getElementById('metricMessages').textContent = messages.toLocaleString();
-      document.getElementById('metricPhotos').textContent = photos.toLocaleString();
+      renderRevenue(fields);
+      renderCountryBreakdown(fields);
+      updateCohortChart(installs, returning);
+    }
 
-      // Formats
-      const fInter = parseVal(fields.ad_interstitial_impressions);
-      const fReward = parseVal(fields.ad_rewarded_impressions);
-      const fBanner = parseVal(fields.ad_banner_impressions);
-      const fAppOpen = parseVal(fields.ad_app_open_impressions);
+    function renderRevenue(fields) {
+      const micros = parseVal(fields.estimated_revenue_micros);
+      const usd = micros / 1000000.0;
+      const mad = usd * 10.05;
+      const sar = usd * 3.75;
 
-      document.getElementById('adFormatInter').textContent = fInter.toLocaleString();
-      document.getElementById('adFormatReward').textContent = fReward.toLocaleString();
-      document.getElementById('adFormatBanner').textContent = fBanner.toLocaleString();
-      document.getElementById('adFormatAppOpen').textContent = fAppOpen.toLocaleString();
+      let mainStr = `$${usd.toFixed(2)}`;
+      let subStr = `≈ ${mad.toFixed(2)} MAD • ${sar.toFixed(2)} SAR`;
 
-      updateAdChart([fInter, fReward, fBanner, fAppOpen]);
+      if (currentCurrency === 'MAD') {
+        mainStr = `${mad.toFixed(2)} MAD`;
+        subStr = `≈ $${usd.toFixed(2)} USD • ${sar.toFixed(2)} SAR`;
+      } else if (currentCurrency === 'SAR') {
+        mainStr = `${sar.toFixed(2)} SAR`;
+        subStr = `≈ $${usd.toFixed(2)} USD • ${mad.toFixed(2)} MAD`;
+      }
 
-      // Countries Breakdown
-      const countries = {};
+      document.getElementById('metricRevenueMain').textContent = mainStr;
+      document.getElementById('metricRevenueSub').textContent = subStr;
+    }
+
+    function renderCountryBreakdown(fields) {
+      const countryData = {};
+      
+      // Parse country_* keys
       for (const key in fields) {
         if (key.startsWith('country_')) {
-          const code = key.replace('country_', '');
-          countries[code] = parseVal(fields[key]);
+          const parts = key.split('_'); // country_SA_installs or country_SA
+          const code = parts[1];
+          if (!countryData[code]) {
+            countryData[code] = { installs: 0, returning: 0, sessions: 0 };
+          }
+          if (key.endsWith('_installs')) {
+            countryData[code].installs = parseVal(fields[key]);
+          } else if (key.endsWith('_returning')) {
+            countryData[code].returning = parseVal(fields[key]);
+          } else {
+            countryData[code].sessions = parseVal(fields[key]);
+          }
         }
       }
 
-      // If empty, supply placeholder countries
-      if (Object.keys(countries).length === 0) {
-        countries['SA'] = 0;
-        countries['AE'] = 0;
-        countries['KW'] = 0;
-        countries['MA'] = 0;
+      // If empty, add placeholder
+      if (Object.keys(countryData).length === 0) {
+        countryData['SA'] = { installs: 0, returning: 0, sessions: 0 };
+        countryData['MA'] = { installs: 0, returning: 0, sessions: 0 };
       }
 
-      updateCountryChart(countries);
+      const tbody = document.getElementById('countryTableBody');
+      tbody.innerHTML = '';
+
+      let totalAllSessions = 0;
+      Object.values(countryData).forEach(c => totalAllSessions += (c.sessions || c.installs));
+      if (totalAllSessions === 0) totalAllSessions = 1;
+
+      const sorted = Object.entries(countryData).sort((a, b) => (b[1].sessions || b[1].installs) - (a[1].sessions || a[1].installs));
+
+      sorted.forEach(([code, data]) => {
+        const countryLabel = flagMap[code] || `🏳️ ${code}`;
+        const total = data.sessions || (data.installs + data.returning);
+        const ratio = (data.installs + data.returning) > 0 ? Math.round((data.returning / (data.installs + data.returning)) * 100) : 0;
+        const share = Math.round((total / totalAllSessions) * 100);
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-white/[0.02] transition-colors';
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-semibold text-white flex items-center gap-2">
+            ${countryLabel}
+          </td>
+          <td class="py-3 px-4 text-center font-mono font-bold text-emerald-400">
+            ${data.installs.toLocaleString()}
+          </td>
+          <td class="py-3 px-4 text-center font-mono font-bold text-indigo-400">
+            ${data.returning.toLocaleString()}
+          </td>
+          <td class="py-3 px-4 text-center font-mono font-bold text-slate-200">
+            ${total.toLocaleString()}
+          </td>
+          <td class="py-3 px-4 text-center">
+            <span class="px-2 py-0.5 rounded-full text-xs font-mono font-semibold ${ratio > 30 ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30' : 'bg-slate-800 text-slate-400'}">
+              ${ratio}% Returning
+            </span>
+          </td>
+          <td class="py-3 px-4 text-right font-mono font-bold text-pink-400">
+            ${share}%
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Update Bar Chart
+      updateCountryChart(sorted);
     }
 
-    const flagMap = {
-      'SA': '🇸🇦 Saudi Arabia',
-      'AE': '🇦🇪 UAE',
-      'KW': '🇰🇼 Kuwait',
-      'QA': '🇶🇦 Qatar',
-      'BH': '🇧🇭 Bahrain',
-      'OM': '🇴🇲 Oman',
-      'MA': '🇲🇦 Morocco',
-      'DZ': '🇩🇿 Algeria',
-      'TN': '🇹🇳 Tunisia',
-      'EG': '🇪🇬 Egypt',
-      'US': '🇺🇸 United States',
-      'GB': '🇬🇧 United Kingdom',
-      'FR': '🇫🇷 France',
-      'GLOBAL': '🌐 Global'
-    };
+    async function fetchUsersList() {
+      const url = `${BASE_DOCS_URL}/live_stats/users?key=${FIRESTORE_API_KEY}&pageSize=100`;
+      try {
+        const res = await fetch(url);
+        if (res.ok) {
+          const data = await res.json();
+          cachedUsersList = (data.documents || []).map(doc => {
+            const f = doc.fields || {};
+            return {
+              id: f.user_id?.stringValue || doc.name.split('/').pop(),
+              country: f.country?.stringValue || 'GLOBAL',
+              city: f.city?.stringValue || 'Unknown',
+              deviceModel: f.device_model?.stringValue || 'Android Device',
+              osVersion: f.os_version?.stringValue || 'Android',
+              launchCount: parseVal(f.launch_count) || 1,
+              isNew: f.is_new?.booleanValue ?? false,
+              lastActive: f.last_active_date?.stringValue || doc.updateTime || 'Recent'
+            };
+          });
+          renderUserTable(cachedUsersList);
+        }
+      } catch (e) {
+        console.error("Users list fetch error:", e);
+      }
+    }
 
-    function updateCountryChart(countryObj) {
-      const sorted = Object.entries(countryObj).sort((a, b) => b[1] - a[1]);
-      const labels = sorted.map(([code]) => flagMap[code] || `🏳️ ${code}`);
-      const data = sorted.map(([, count]) => count);
+    function renderUserTable(users) {
+      const tbody = document.getElementById('userTableBody');
+      tbody.innerHTML = '';
 
-      const ctx = document.getElementById('countryChart').getContext('2d');
-      if (countryChartInstance) countryChartInstance.destroy();
+      if (users.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="py-10 text-center text-slate-500 font-mono text-xs">
+              Aucun utilisateur encore connecté. Dès qu'un user ouvre l'application, son appareil apparaîtra instantanément ici !
+            </td>
+          </tr>
+        `;
+        return;
+      }
 
-      countryChartInstance = new Chart(ctx, {
+      // Sort by launch count / recent
+      users.forEach(u => {
+        const flagName = flagMap[u.country] || u.country;
+        const statusBadge = u.isNew && u.launchCount <= 1
+          ? `<span class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">🟢 Nouveau (1er Install)</span>`
+          : `<span class="px-2.5 py-1 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">🔵 Fidèle (${u.launchCount} visites)</span>`;
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-white/[0.02] transition-colors';
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-mono font-bold text-pink-400 text-xs">
+            ${u.id}
+          </td>
+          <td class="py-3 px-4 text-xs font-semibold text-slate-200">
+            <div>${flagName}</div>
+            <div class="text-[11px] text-slate-400 font-normal">📍 ${u.city}</div>
+          </td>
+          <td class="py-3 px-4 text-xs text-slate-300 font-mono">
+            <div>${u.deviceModel}</div>
+            <div class="text-[10px] text-slate-500">${u.osVersion}</div>
+          </td>
+          <td class="py-3 px-4 text-center">
+            ${statusBadge}
+          </td>
+          <td class="py-3 px-4 text-center font-mono font-bold text-white text-sm">
+            <span class="px-3 py-1 rounded-xl bg-slate-900 border border-white/5">
+              ${u.launchCount}x
+            </span>
+          </td>
+          <td class="py-3 px-4 text-right font-mono text-xs text-slate-400">
+            ${u.lastActive}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterUserTable() {
+      const q = document.getElementById('userSearchInput').value.toLowerCase().trim();
+      if (!q) {
+        renderUserTable(cachedUsersList);
+        return;
+      }
+      const filtered = cachedUsersList.filter(u => 
+        u.id.toLowerCase().includes(q) ||
+        u.country.toLowerCase().includes(q) ||
+        u.city.toLowerCase().includes(q) ||
+        u.deviceModel.toLowerCase().includes(q)
+      );
+      renderUserTable(filtered);
+    }
+
+    function downloadCSV() {
+      if (cachedUsersList.length === 0) {
+        alert("Pas d'utilisateurs à exporter pour le moment.");
+        return;
+      }
+      let csv = "User ID,Country,City,Device Model,OS Version,Launch Count,Is New,Last Active\n";
+      cachedUsersList.forEach(u => {
+        csv += `"${u.id}","${u.country}","${u.city}","${u.deviceModel}","${u.osVersion}",${u.launchCount},${u.isNew},"${u.lastActive}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `qareeb_users_cohort_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+    }
+
+    function updateCountryChart(sortedCountryEntries) {
+      const ctx = document.getElementById('countryInstallsChart').getContext('2d');
+      if (countryInstallsChart) countryInstallsChart.destroy();
+
+      const labels = sortedCountryEntries.map(([code]) => flagMap[code] || code);
+      const data = sortedCountryEntries.map(([, d]) => d.installs || d.sessions || 0);
+
+      countryInstallsChart = new Chart(ctx, {
         type: 'bar',
         data: {
           labels: labels,
           datasets: [{
-            label: 'Users / Sessions',
+            label: 'Nouveaux Installs',
             data: data,
-            backgroundColor: 'rgba(236, 72, 153, 0.75)',
-            hoverBackgroundColor: 'rgba(236, 72, 153, 1)',
-            borderRadius: 8,
-            borderWidth: 0
+            backgroundColor: '#10b981',
+            borderRadius: 8
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false }
-          },
+          plugins: { legend: { display: false } },
           scales: {
-            x: {
-              grid: { display: false },
-              ticks: { color: '#94a3b8', font: { family: 'Outfit', size: 12 } }
-            },
-            y: {
-              beginAtZero: true,
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
-              ticks: {
-                color: '#94a3b8',
-                precision: 0,
-                font: { family: 'Outfit', size: 11 }
-              }
-            }
+            x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { family: 'Outfit', size: 11 } } },
+            y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8', precision: 0 } }
           }
         }
       });
-
-      // Quick tags
-      const listEl = document.getElementById('countryList');
-      listEl.innerHTML = '';
-      sorted.slice(0, 4).forEach(([code, count]) => {
-        const flagName = flagMap[code] || code;
-        const tag = document.createElement('div');
-        tag.className = 'p-3 rounded-2xl bg-slate-900/90 border border-white/5 flex items-center justify-between';
-        tag.innerHTML = `
-          <span class="text-xs font-semibold text-slate-300 truncate mr-2">${flagName}</span>
-          <span class="text-xs font-mono font-bold text-pink-400">${count.toLocaleString()}</span>
-        `;
-        listEl.appendChild(tag);
-      });
     }
 
-    function updateAdChart(dataValues) {
-      const ctx = document.getElementById('adFormatChart').getContext('2d');
-      if (adFormatChartInstance) adFormatChartInstance.destroy();
+    function updateCohortChart(installs, returning) {
+      const ctx = document.getElementById('cohortRatioChart').getContext('2d');
+      if (cohortRatioChart) cohortRatioChart.destroy();
 
-      // If all zeros, show dummy 1 each so doughnut looks clean
-      const sum = dataValues.reduce((a, b) => a + b, 0);
-      const displayData = sum === 0 ? [1, 1, 1, 1] : dataValues;
+      const displayData = (installs === 0 && returning === 0) ? [1, 1] : [installs, returning];
 
-      adFormatChartInstance = new Chart(ctx, {
+      cohortRatioChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-          labels: ['Interstitial', 'Rewarded', 'Banner', 'App Open'],
+          labels: ['Nouveaux Installs (New)', 'Utilisateurs Fidèles (Returning)'],
           datasets: [{
             data: displayData,
-            backgroundColor: [
-              '#ec4899', // pink
-              '#22d3ee', // cyan
-              '#6366f1', // indigo
-              '#f59e0b'  // amber
-            ],
+            backgroundColor: ['#10b981', '#6366f1'],
             borderWidth: 0,
             hoverOffset: 6
           }]
@@ -653,9 +785,12 @@
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          cutout: '72%',
+          cutout: '70%',
           plugins: {
-            legend: { display: false }
+            legend: {
+              position: 'bottom',
+              labels: { color: '#cbd5e1', font: { family: 'Outfit', size: 12 } }
+            }
           }
         }
       });
