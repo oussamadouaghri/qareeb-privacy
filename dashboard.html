@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Qareeb Enterprise Live Analytics & User Directory</title>
+  <title>Qareeb Enterprise BI — Live Analytics, Ad Performance & Economy</title>
   <link rel="icon" href="icon.png" type="image/png" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Chart.js CDN -->
@@ -21,14 +21,6 @@
           fontFamily: {
             sans: ['Outfit', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            dark: {
-              bg: '#090d16',
-              card: '#0f172a',
-              border: 'rgba(255, 255, 255, 0.08)',
-              hover: '#1e293b'
-            }
           }
         }
       }
@@ -36,21 +28,22 @@
   </script>
   <style>
     body {
-      background-color: #090d16;
+      background-color: #080c14;
       color: #f1f5f9;
       font-family: 'Outfit', sans-serif;
       min-height: 100vh;
       overflow-x: hidden;
     }
     .glass-card {
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.65));
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.88), rgba(20, 29, 47, 0.72));
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
     }
     .glass-card:hover {
-      border-color: rgba(236, 72, 153, 0.3);
+      border-color: rgba(236, 72, 153, 0.28);
+      box-shadow: 0 16px 36px -10px rgba(236, 72, 153, 0.12);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .pulse-dot {
@@ -62,7 +55,7 @@
       100% { transform: scale(0.95); opacity: 0.9; }
     }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-track { background: #080c14; }
     ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 999px; }
     ::-webkit-scrollbar-thumb:hover { background: #334155; }
   </style>
@@ -70,7 +63,7 @@
 <body class="selection:bg-pink-500/30 selection:text-pink-200">
 
   <!-- ================= PIN AUTH MODAL ================= -->
-  <div id="pinModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 transition-all duration-300">
+  <div id="pinModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 transition-all duration-300">
     <div class="glass-card max-w-sm w-full p-8 rounded-3xl text-center shadow-2xl border border-pink-500/20">
       <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-pink-600 to-rose-400 flex items-center justify-center shadow-lg shadow-pink-500/30">
         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -78,7 +71,7 @@
         </svg>
       </div>
       <h2 class="text-2xl font-bold text-white mb-1">Qareeb Control Center</h2>
-      <p class="text-xs text-slate-400 mb-6">Enter Admin Access PIN to view user cohorts & live revenue</p>
+      <p class="text-xs text-slate-400 mb-6">Enter Admin Access PIN to view full live BI & Ad monetization</p>
       
       <input type="password" id="pinInput" maxlength="6" autofocus placeholder="••••" 
         class="w-full text-center text-3xl font-mono tracking-widest py-3 px-4 bg-slate-900/90 border border-slate-700 rounded-2xl text-white focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/30 transition-all mb-4" />
@@ -96,7 +89,7 @@
   <div id="dashboardApp" class="min-h-screen flex flex-col opacity-0 transition-opacity duration-500">
     
     <!-- TOP NAVIGATION BAR -->
-    <header class="sticky top-0 z-40 border-b border-white/5 bg-[#090d16]/80 backdrop-blur-xl">
+    <header class="sticky top-0 z-40 border-b border-white/5 bg-[#080c14]/85 backdrop-blur-xl">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
         <!-- App Logo & Branding -->
@@ -107,18 +100,18 @@
           <div>
             <div class="flex items-center space-x-2">
               <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">Qareeb</span>
-              <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">COHORT ENGINE</span>
+              <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">ENTERPRISE BI</span>
             </div>
-            <p class="text-xs text-slate-400 font-medium">Exact User Installs & Retention Analytics</p>
+            <p class="text-xs text-slate-400 font-medium">Real-Time Monetization, Fill Rate & Virtual Economy</p>
           </div>
         </div>
 
         <!-- Realtime Status & Controls -->
         <div class="flex items-center space-x-3 sm:space-x-4">
           <!-- Realtime Sync Pill -->
-          <div class="hidden sm:flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
+          <div class="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 pulse-dot"></span>
-            <span>Real-time Active</span>
+            <span>Live Sync Active</span>
           </div>
 
           <!-- Time Range Toggle -->
@@ -148,18 +141,46 @@
     <!-- CONTENT BODY -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 space-y-8 w-full">
 
-      <!-- SUBHEADER / STATUS NOTICE -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-white/5">
-        <div>
-          <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
-            User Acquisition, Cohorts & Device Analytics
-          </h1>
-          <p class="text-xs sm:text-sm text-slate-400 mt-1">
-            Exact tracking of new installs vs returning users, countries, device models & open frequency.
-          </p>
+      <!-- ================= INTERACTIVE FILTER BAR ================= -->
+      <div class="glass-card rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4 border border-white/10">
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+            </svg>
+            Filtres BI:
+          </div>
+
+          <!-- Country Filter Dropdown -->
+          <div class="relative">
+            <select id="filterCountry" onchange="applyFilters()" 
+              class="appearance-none py-2 px-3.5 pr-8 rounded-xl bg-slate-900 border border-white/10 text-xs font-semibold text-white focus:outline-none focus:border-pink-500 cursor-pointer">
+              <option value="ALL">🌍 Toutes les Régions (Global)</option>
+              <!-- Dynamically populated -->
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </div>
+          </div>
+
+          <!-- Ad Format Filter Dropdown -->
+          <div class="relative">
+            <select id="filterFormat" onchange="applyFilters()" 
+              class="appearance-none py-2 px-3.5 pr-8 rounded-xl bg-slate-900 border border-white/10 text-xs font-semibold text-white focus:outline-none focus:border-pink-500 cursor-pointer">
+              <option value="ALL">📢 Tous les Formats d'Ads</option>
+              <option value="rewarded">🎁 Rewarded Video (Crédits & Photos)</option>
+              <option value="interstitial">📺 Interstitial (Transitions)</option>
+              <option value="app_open">⚡ App Open (Démarrage)</option>
+              <option value="banner">🖼️ Banner (Bas d'écran)</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-400">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </div>
+          </div>
         </div>
+
+        <!-- Currency Picker & Last Sync -->
         <div class="flex items-center gap-3">
-          <!-- Currency switcher -->
           <div class="flex items-center p-1 bg-slate-900/90 border border-white/10 rounded-xl text-xs font-mono font-semibold">
             <button id="currUSD" onclick="setCurrency('USD')" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white">USD ($)</button>
             <button id="currMAD" onclick="setCurrency('MAD')" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">MAD</button>
@@ -171,82 +192,204 @@
         </div>
       </div>
 
-      <!-- ================= HERO METRIC CARDS GRID ================= -->
+      <!-- ================= 4 HERO KPI CARDS ================= -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
-        <!-- CARD 1: NEW INSTALLS (FIRST TIME USERS) -->
+        <!-- CARD 1: REVENUE & ECPM -->
         <div class="glass-card rounded-3xl p-6 relative overflow-hidden group border-emerald-500/20">
           <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
           <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Nouveaux Installs (New)</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Revenus AdMob</span>
             <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold text-lg">
-              📥
-            </div>
-          </div>
-          <div class="space-y-1">
-            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricNewInstalls">0</div>
-            <div class="text-xs text-emerald-400/90 font-medium">1ère ouverture (First App Open)</div>
-          </div>
-          <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-            <span>Part Nouveaux</span>
-            <span id="metricNewPercent" class="font-mono font-bold text-emerald-400">0%</span>
-          </div>
-        </div>
-
-        <!-- CARD 2: RETURNING USERS (RETENTION) -->
-        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group border-indigo-500/20">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-bold uppercase tracking-wider text-indigo-400">Utilisateurs Fidèles (Returning)</span>
-            <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
-              🔄
-            </div>
-          </div>
-          <div class="space-y-1">
-            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricReturning">0</div>
-            <div class="text-xs text-slate-400">Revenus 2+ fois dans l'app</div>
-          </div>
-          <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-            <span>Taux de Rétention</span>
-            <span id="metricRetentionRate" class="font-mono font-bold text-indigo-300">0%</span>
-          </div>
-        </div>
-
-        <!-- CARD 3: TOTAL SESSIONS (ALL LAUNCHES) -->
-        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Total Ouvertures (Launches)</span>
-            <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
-              🚀
-            </div>
-          </div>
-          <div class="space-y-1">
-            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricTotalSessions">0</div>
-            <div class="text-xs text-slate-400">Ch7al mn mra dkhlat l'app</div>
-          </div>
-          <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-            <span>Moyenne / User</span>
-            <span id="metricAvgSessions" class="font-mono font-bold text-cyan-300">1.0x</span>
-          </div>
-        </div>
-
-        <!-- CARD 4: AD REVENUE & ADMOB -->
-        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group border-amber-500/20">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Revenus Publicitaires</span>
-            <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-bold">
               💰
             </div>
           </div>
           <div class="space-y-1">
             <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricRevenueMain">$0.00</div>
-            <div class="text-xs text-amber-400 font-mono font-semibold" id="metricRevenueSub">≈ 0.00 MAD</div>
+            <div class="text-xs text-emerald-400 font-mono font-semibold" id="metricRevenueSub">≈ 0.00 MAD • 0.00 SAR</div>
           </div>
           <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
-            <span>Impressions AdMob</span>
-            <span id="metricImpressions" class="font-mono font-bold text-slate-200">0</span>
+            <span>eCPM Moyen</span>
+            <span id="metricECPM" class="font-mono font-bold text-emerald-300">$0.00</span>
+          </div>
+        </div>
+
+        <!-- CARD 2: AD REQUESTS & MATCH RATE -->
+        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group border-cyan-500/20">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-cyan-400">Demandes d'Annonces</span>
+            <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+              📡
+            </div>
+          </div>
+          <div class="space-y-1">
+            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricAdRequests">0</div>
+            <div class="text-xs text-slate-400">Ad Requests envoyées</div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+            <span>Match Rate (Remplissage)</span>
+            <span id="metricMatchRate" class="font-mono font-bold text-cyan-300">0.0%</span>
+          </div>
+        </div>
+
+        <!-- CARD 3: IMPRESSIONS & FILL RATE (SHOW RATE) -->
+        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group border-pink-500/20">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl group-hover:bg-pink-500/20 transition-all"></div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-pink-400">Impressions & Clicks</span>
+            <div class="w-10 h-10 rounded-2xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400">
+              📺
+            </div>
+          </div>
+          <div class="space-y-1">
+            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricAdImpressions">0</div>
+            <div class="text-xs text-slate-400 flex items-center gap-1.5">
+              <span>Clicks: <b id="metricAdClicks" class="text-slate-200">0</b></span>
+              <span>•</span>
+              <span id="metricCTR" class="text-pink-400 font-semibold font-mono">0.0% CTR</span>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+            <span>Fill Rate (Show Rate)</span>
+            <span id="metricFillRate" class="font-mono font-bold text-pink-300">0.0%</span>
+          </div>
+        </div>
+
+        <!-- CARD 4: VIRTUAL CREDITS ECONOMY -->
+        <div class="glass-card rounded-3xl p-6 relative overflow-hidden group border-amber-500/20">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Économie Crédits (⚡)</span>
+            <div class="w-10 h-10 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 font-bold">
+              ⚡
+            </div>
+          </div>
+          <div class="space-y-1">
+            <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono tracking-tight" id="metricCreditsEarned">0</div>
+            <div class="text-xs text-slate-400">Crédits générés via Rewarded</div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+            <span>Consommés (Messages)</span>
+            <span id="metricCreditsSpent" class="font-mono font-bold text-amber-300">0 spent</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= DETAILED AD FORMATS BREAKDOWN TABLE ================= -->
+      <div class="glass-card rounded-3xl p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="text-xl">📊</span>
+              Performance Détaillée par Format d'Annonce (Ad Unit Health)
+            </h2>
+            <p class="text-xs text-slate-400">Demandes (Requests), Matchs, Impressions, Clicks, Match Rate, Fill Rate & eCPM</p>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-white/10 text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                <th class="py-3 px-4">Format d'Annonce</th>
+                <th class="py-3 px-4 text-center">📡 Demandes (Requests)</th>
+                <th class="py-3 px-4 text-center">🎯 Matchs (Loaded)</th>
+                <th class="py-3 px-4 text-center">📺 Impressions</th>
+                <th class="py-3 px-4 text-center">👆 Clicks</th>
+                <th class="py-3 px-4 text-center">Match Rate (%)</th>
+                <th class="py-3 px-4 text-center">Fill Rate (%)</th>
+                <th class="py-3 px-4 text-center">CTR (%)</th>
+                <th class="py-3 px-4 text-right">eCPM Estimé</th>
+              </tr>
+            </thead>
+            <tbody id="adFormatTableBody" class="divide-y divide-white/5 text-sm font-mono">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= VIRTUAL CREDITS & RETENTION ROW ================= -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- CREDITS ECONOMY DEEP DIVE -->
+        <div class="glass-card rounded-3xl p-6">
+          <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+            <span>⚡</span> Analyse de la Monnaie Virtuelle (Crédits)
+          </h3>
+          <p class="text-xs text-slate-400 mb-6">Comportement des utilisateurs face aux vidéos récompensées</p>
+
+          <div class="space-y-4 text-xs">
+            <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-white/5 flex items-center justify-between">
+              <div>
+                <div class="font-bold text-slate-200">Recharges Effectuées (Refills)</div>
+                <div class="text-[10px] text-slate-500">Nombre de fois où l'user a regardé un ad pour +15 crédits</div>
+              </div>
+              <span id="creditRefillsCount" class="text-sm font-mono font-bold text-emerald-400">0</span>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-white/5 flex items-center justify-between">
+              <div>
+                <div class="font-bold text-slate-200">Messages Échangés (5 crédits/msg)</div>
+                <div class="text-[10px] text-slate-500">Consommation active de chat avec les AI</div>
+              </div>
+              <span id="creditMessagesCount" class="text-sm font-mono font-bold text-cyan-400">0</span>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-white/5 flex items-center justify-between">
+              <div>
+                <div class="font-bold text-slate-200">Taux d'Épuisement (Burn Ratio)</div>
+                <div class="text-[10px] text-slate-500">Ratio Crédits Consommés vs Crédits Gagnés</div>
+              </div>
+              <span id="creditBurnRatio" class="text-sm font-mono font-bold text-amber-400">0.0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- NEW VS RETURNING CHART -->
+        <div class="glass-card rounded-3xl p-6">
+          <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+            <span>🔄</span> Rétention & Cohorts
+          </h3>
+          <p class="text-xs text-slate-400 mb-6">Nouveaux Installs vs Utilisateurs Fidèles</p>
+          <div class="h-56 relative flex items-center justify-center">
+            <canvas id="cohortRatioChart"></canvas>
+          </div>
+        </div>
+
+        <!-- REVENUE CONVERSION -->
+        <div class="glass-card rounded-3xl p-6">
+          <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+            <span>📈</span> Efficacité Monétaire
+          </h3>
+          <p class="text-xs text-slate-400 mb-6">Valeur moyenne générée par utilisateur</p>
+          
+          <div class="space-y-4 text-xs">
+            <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-white/5 flex items-center justify-between">
+              <div>
+                <div class="font-bold text-slate-200">Revenu / User (ARPU)</div>
+                <div class="text-[10px] text-slate-500">Moyenne générée par utilisateur installé</div>
+              </div>
+              <span id="arpuValue" class="text-sm font-mono font-bold text-emerald-400">$0.00</span>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-white/5 flex items-center justify-between">
+              <div>
+                <div class="font-bold text-slate-200">Revenu / Session</div>
+                <div class="text-[10px] text-slate-500">Moyenne par ouverture de l'application</div>
+              </div>
+              <span id="arpsValue" class="text-sm font-mono font-bold text-pink-400">$0.00</span>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-white/5 flex items-center justify-between">
+              <div>
+                <div class="font-bold text-slate-200">Ads vus / Session</div>
+                <div class="text-[10px] text-slate-500">Fréquence publicitaire par utilisateur</div>
+              </div>
+              <span id="adsPerSession" class="text-sm font-mono font-bold text-indigo-400">0.0 ads</span>
+            </div>
           </div>
         </div>
 
@@ -277,9 +420,7 @@
               </tr>
             </thead>
             <tbody id="countryTableBody" class="divide-y divide-white/5 text-sm">
-              <tr>
-                <td colspan="6" class="py-8 text-center text-slate-500 font-mono text-xs">Loading live country analytics...</td>
-              </tr>
+              <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
@@ -330,39 +471,12 @@
             <tbody id="userTableBody" class="divide-y divide-white/5 text-sm">
               <tr>
                 <td colspan="6" class="py-12 text-center text-slate-500 font-mono text-xs">
-                  Aucun utilisateur n'a encore ouvert la nouvelle version. Les appareils s'afficheront ici en temps réel dès la première ouverture !
+                  Aucun utilisateur encore connecté. Dès qu'un user ouvre l'application, son appareil apparaîtra instantanément ici !
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-      </div>
-
-      <!-- ================= CHARTS: ACQUISITION & AD FORMATS ================= -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-        <!-- Chart 1: Acquisition by Country -->
-        <div class="glass-card rounded-3xl p-6">
-          <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
-            <span>📊</span> Nouveaux Installs par Pays
-          </h3>
-          <p class="text-xs text-slate-400 mb-6">Comparatif exact des pays d'où proviennent les utilisateurs</p>
-          <div class="h-64 relative">
-            <canvas id="countryInstallsChart"></canvas>
-          </div>
-        </div>
-
-        <!-- Chart 2: New vs Returning Breakdown -->
-        <div class="glass-card rounded-3xl p-6">
-          <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
-            <span>🔄</span> Ratio: Nouveaux (Installs) vs Fidèles (Returning)
-          </h3>
-          <p class="text-xs text-slate-400 mb-6">Comportement global de la base d'utilisateurs</p>
-          <div class="h-64 relative flex items-center justify-center">
-            <canvas id="cohortRatioChart"></canvas>
-          </div>
-        </div>
-
       </div>
 
     </main>
@@ -377,7 +491,9 @@
 
     let activeView = 'all'; // 'all' or 'today'
     let currentCurrency = 'USD'; // 'USD', 'MAD', 'SAR'
-    let countryInstallsChart = null;
+    let selectedCountryFilter = 'ALL';
+    let selectedFormatFilter = 'ALL';
+
     let cohortRatioChart = null;
     let cachedUsersList = [];
     let cachedLiveStats = {};
@@ -467,7 +583,7 @@
       document.getElementById('currUSD').className = curr === 'USD' ? "px-2.5 py-1 rounded-lg bg-emerald-600 text-white" : "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white";
       document.getElementById('currMAD').className = curr === 'MAD' ? "px-2.5 py-1 rounded-lg bg-emerald-600 text-white" : "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white";
       document.getElementById('currSAR').className = curr === 'SAR' ? "px-2.5 py-1 rounded-lg bg-emerald-600 text-white" : "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white";
-      renderRevenue(cachedLiveStats);
+      renderDashboard();
     }
 
     function switchView(view) {
@@ -482,6 +598,12 @@
         btnAll.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all";
       }
       fetchAllData();
+    }
+
+    function applyFilters() {
+      selectedCountryFilter = document.getElementById('filterCountry').value;
+      selectedFormatFilter = document.getElementById('filterFormat').value;
+      renderDashboard();
     }
 
     function parseVal(field) {
@@ -519,11 +641,11 @@
         if (res.ok) {
           const data = await res.json();
           cachedLiveStats = data.fields || {};
-          renderLiveStats(cachedLiveStats);
+          renderDashboard();
         } else {
           if (res.status === 404 && activeView === 'today') {
             cachedLiveStats = {};
-            renderLiveStats({});
+            renderDashboard();
           }
         }
       } catch (e) {
@@ -531,59 +653,205 @@
       }
     }
 
-    function renderLiveStats(fields) {
-      const installs = parseVal(fields.total_installs);
-      const returning = parseVal(fields.total_returning);
-      const totalSessions = parseVal(fields.total_sessions);
-      const impressions = parseVal(fields.total_ad_impressions);
+    function renderDashboard() {
+      const fields = cachedLiveStats;
 
-      document.getElementById('metricNewInstalls').textContent = installs.toLocaleString();
-      document.getElementById('metricReturning').textContent = returning.toLocaleString();
-      document.getElementById('metricTotalSessions').textContent = totalSessions.toLocaleString();
-      document.getElementById('metricImpressions').textContent = impressions.toLocaleString();
+      // Update Filter Country Dropdown with all detected countries
+      updateCountryFilterOptions(fields);
 
-      const newPercent = totalSessions > 0 ? Math.round((installs / totalSessions) * 100) : 0;
-      document.getElementById('metricNewPercent').textContent = `${newPercent}% des sessions`;
+      // Calculations based on filters
+      const isGlobal = (selectedCountryFilter === 'ALL');
+      const countryCode = selectedCountryFilter;
 
-      const retRate = (installs + returning) > 0 ? Math.round((returning / (installs + returning)) * 100) : 0;
-      document.getElementById('metricRetentionRate').textContent = `${retRate}% Taux Fidélité`;
+      // Base metrics
+      let totalSessions = parseVal(fields.total_sessions);
+      let newInstalls = parseVal(fields.total_installs);
+      let returning = parseVal(fields.total_returning);
 
-      const avgPerUser = installs > 0 ? (totalSessions / installs).toFixed(1) : "1.0";
-      document.getElementById('metricAvgSessions').textContent = `${avgPerUser}x / user`;
+      if (!isGlobal) {
+        totalSessions = parseVal(fields[`country_${countryCode}_sessions`]) || parseVal(fields[`country_${countryCode}`]);
+        newInstalls = parseVal(fields[`country_${countryCode}_installs`]);
+        returning = parseVal(fields[`country_${countryCode}_returning`]);
+      }
 
-      renderRevenue(fields);
-      renderCountryBreakdown(fields);
-      updateCohortChart(installs, returning);
-    }
+      // Ad Format Metrics
+      let req = parseVal(fields.ad_requests_total);
+      let matched = parseVal(fields.ad_matched_total);
+      let imp = parseVal(fields.total_ad_impressions);
+      let clicks = parseVal(fields.total_ad_clicks);
+      let micros = parseVal(fields.estimated_revenue_micros);
 
-    function renderRevenue(fields) {
-      const micros = parseVal(fields.estimated_revenue_micros);
+      if (selectedFormatFilter !== 'ALL') {
+        const f = selectedFormatFilter;
+        req = parseVal(fields[`ad_${f}_requests`]);
+        matched = parseVal(fields[`ad_${f}_matched`]);
+        imp = parseVal(fields[`ad_${f}_impressions`]);
+        clicks = parseVal(fields[`ad_${f}_clicks`]);
+      }
+
+      // Fallback matching logic if requests not yet sent
+      if (req === 0 && imp > 0) req = imp;
+      if (matched === 0 && imp > 0) matched = imp;
+
+      // Match Rate & Fill Rate
+      const matchRate = req > 0 ? ((matched / req) * 100).toFixed(1) : "100.0";
+      const fillRate = matched > 0 ? ((imp / matched) * 100).toFixed(1) : "100.0";
+      const ctr = imp > 0 ? ((clicks / imp) * 100).toFixed(1) : "0.0";
+
+      // Revenue & eCPM
       const usd = micros / 1000000.0;
       const mad = usd * 10.05;
       const sar = usd * 3.75;
+      const ecpm = imp > 0 ? ((usd / imp) * 1000).toFixed(2) : "0.00";
 
-      let mainStr = `$${usd.toFixed(2)}`;
-      let subStr = `≈ ${mad.toFixed(2)} MAD • ${sar.toFixed(2)} SAR`;
-
+      let mainRev = `$${usd.toFixed(2)}`;
+      let subRev = `≈ ${mad.toFixed(2)} MAD • ${sar.toFixed(2)} SAR`;
       if (currentCurrency === 'MAD') {
-        mainStr = `${mad.toFixed(2)} MAD`;
-        subStr = `≈ $${usd.toFixed(2)} USD • ${sar.toFixed(2)} SAR`;
+        mainRev = `${mad.toFixed(2)} MAD`;
+        subRev = `≈ $${usd.toFixed(2)} USD • ${sar.toFixed(2)} SAR`;
       } else if (currentCurrency === 'SAR') {
-        mainStr = `${sar.toFixed(2)} SAR`;
-        subStr = `≈ $${usd.toFixed(2)} USD • ${mad.toFixed(2)} MAD`;
+        mainRev = `${sar.toFixed(2)} SAR`;
+        subRev = `≈ $${usd.toFixed(2)} USD • ${mad.toFixed(2)} MAD`;
       }
 
-      document.getElementById('metricRevenueMain').textContent = mainStr;
-      document.getElementById('metricRevenueSub').textContent = subStr;
+      document.getElementById('metricRevenueMain').textContent = mainRev;
+      document.getElementById('metricRevenueSub').textContent = subRev;
+      document.getElementById('metricECPM').textContent = `$${ecpm}`;
+
+      document.getElementById('metricAdRequests').textContent = req.toLocaleString();
+      document.getElementById('metricMatchRate').textContent = `${matchRate}% Match`;
+      document.getElementById('metricAdImpressions').textContent = imp.toLocaleString();
+      document.getElementById('metricAdClicks').textContent = clicks.toLocaleString();
+      document.getElementById('metricCTR').textContent = `${ctr}% CTR`;
+      document.getElementById('metricFillRate').textContent = `${fillRate}% Fill`;
+
+      // Credits Virtual Economy
+      const creditsEarned = parseVal(fields.credits_earned_total);
+      const creditsSpent = parseVal(fields.credits_spent_total);
+      const refillCount = parseVal(fields.credits_refill_count);
+      const messagesCount = parseVal(fields.total_messages_sent);
+
+      document.getElementById('metricCreditsEarned').textContent = creditsEarned.toLocaleString();
+      document.getElementById('metricCreditsSpent').textContent = `${creditsSpent.toLocaleString()} spent`;
+      document.getElementById('creditRefillsCount').textContent = refillCount.toLocaleString();
+      document.getElementById('creditMessagesCount').textContent = messagesCount.toLocaleString();
+
+      const burnRatio = creditsEarned > 0 ? ((creditsSpent / creditsEarned) * 100).toFixed(1) : "0.0";
+      document.getElementById('creditBurnRatio').textContent = `${burnRatio}%`;
+
+      // ARPU & ARPS
+      const arpu = newInstalls > 0 ? (usd / newInstalls).toFixed(3) : "0.000";
+      const arps = totalSessions > 0 ? (usd / totalSessions).toFixed(3) : "0.000";
+      const adsPerSess = totalSessions > 0 ? (imp / totalSessions).toFixed(1) : "0.0";
+
+      document.getElementById('arpuValue').textContent = `$${arpu}`;
+      document.getElementById('arpsValue').textContent = `$${arps}`;
+      document.getElementById('adsPerSession').textContent = `${adsPerSess} ads / session`;
+
+      // Render Format Table
+      renderFormatTable(fields);
+
+      // Render Country Table
+      renderCountryBreakdown(fields);
+
+      // Render Cohort Chart
+      updateCohortChart(newInstalls, returning);
+
+      // Filter Users Table
+      filterUserTable();
+    }
+
+    function updateCountryFilterOptions(fields) {
+      const select = document.getElementById('filterCountry');
+      const currentVal = select.value;
+      
+      const detected = new Set();
+      for (const key in fields) {
+        if (key.startsWith('country_')) {
+          const code = key.split('_')[1];
+          if (code && code !== 'GLOBAL') detected.add(code);
+        }
+      }
+      cachedUsersList.forEach(u => {
+        if (u.country && u.country !== 'GLOBAL') detected.add(u.country);
+      });
+
+      // Always include SA & MA
+      detected.add('SA');
+      detected.add('MA');
+
+      let html = '<option value="ALL">🌍 Toutes les Régions (Global)</option>';
+      Array.from(detected).sort().forEach(code => {
+        const label = getCountryLabel(code);
+        html += `<option value="${code}" ${currentVal === code ? 'selected' : ''}>${label}</option>`;
+      });
+      select.innerHTML = html;
+    }
+
+    function renderFormatTable(fields) {
+      const formats = [
+        { id: 'rewarded', name: '🎁 Rewarded Video (Crédits & VIP Photos)' },
+        { id: 'interstitial', name: '📺 Interstitial (Transitions d\'écran)' },
+        { id: 'app_open', name: '⚡ App Open (Démarrage App)' },
+        { id: 'banner', name: '🖼️ Banner (Bannière Basique)' }
+      ];
+
+      const tbody = document.getElementById('adFormatTableBody');
+      tbody.innerHTML = '';
+
+      formats.forEach(f => {
+        let r = parseVal(fields[`ad_${f.id}_requests`]);
+        let m = parseVal(fields[`ad_${f.id}_matched`]);
+        let i = parseVal(fields[`ad_${f.id}_impressions`]);
+        let c = parseVal(fields[`ad_${f.id}_clicks`]);
+
+        if (r === 0 && i > 0) r = i;
+        if (m === 0 && i > 0) m = i;
+
+        const mRate = r > 0 ? ((m / r) * 100).toFixed(1) : "100.0";
+        const fRate = m > 0 ? ((i / m) * 100).toFixed(1) : "100.0";
+        const ctr = i > 0 ? ((c / i) * 100).toFixed(1) : "0.0";
+
+        // Approximated eCPM based on format tier
+        let ecpmEst = 0.0;
+        if (f.id === 'rewarded') ecpmEst = 8.50;
+        else if (f.id === 'interstitial') ecpmEst = 4.20;
+        else if (f.id === 'app_open') ecpmEst = 5.00;
+        else ecpmEst = 0.60;
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-white/[0.02] transition-colors';
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-sans font-semibold text-white">
+            ${f.name}
+          </td>
+          <td class="py-3 px-4 text-center font-bold text-slate-300">${r.toLocaleString()}</td>
+          <td class="py-3 px-4 text-center font-bold text-cyan-400">${m.toLocaleString()}</td>
+          <td class="py-3 px-4 text-center font-bold text-pink-400">${i.toLocaleString()}</td>
+          <td class="py-3 px-4 text-center font-bold text-amber-400">${c.toLocaleString()}</td>
+          <td class="py-3 px-4 text-center">
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+              ${mRate}%
+            </span>
+          </td>
+          <td class="py-3 px-4 text-center">
+            <span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+              ${fRate}%
+            </span>
+          </td>
+          <td class="py-3 px-4 text-center text-slate-300">${ctr}%</td>
+          <td class="py-3 px-4 text-right font-bold text-emerald-400">$${ecpmEst.toFixed(2)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
 
     function renderCountryBreakdown(fields) {
       const countryData = {};
       
-      // Parse country_* keys
       for (const key in fields) {
         if (key.startsWith('country_')) {
-          const parts = key.split('_'); // country_SA_installs or country_SA
+          const parts = key.split('_');
           const code = parts[1];
           if (!countryData[code]) {
             countryData[code] = { installs: 0, returning: 0, sessions: 0 };
@@ -598,7 +866,6 @@
         }
       }
 
-      // If empty, add placeholder
       if (Object.keys(countryData).length === 0) {
         countryData['SA'] = { installs: 0, returning: 0, sessions: 0 };
         countryData['MA'] = { installs: 0, returning: 0, sessions: 0 };
@@ -645,9 +912,6 @@
         `;
         tbody.appendChild(tr);
       });
-
-      // Update Bar Chart
-      updateCountryChart(sorted);
     }
 
     async function fetchUsersList() {
@@ -669,11 +933,30 @@
               lastActive: f.last_active_date?.stringValue || doc.updateTime || 'Recent'
             };
           });
-          renderUserTable(cachedUsersList);
+          filterUserTable();
         }
       } catch (e) {
         console.error("Users list fetch error:", e);
       }
+    }
+
+    function filterUserTable() {
+      const q = (document.getElementById('userSearchInput')?.value || '').toLowerCase().trim();
+      const countryFilter = selectedCountryFilter;
+
+      let list = cachedUsersList;
+      if (countryFilter !== 'ALL') {
+        list = list.filter(u => u.country.toUpperCase() === countryFilter.toUpperCase());
+      }
+      if (q) {
+        list = list.filter(u => 
+          u.id.toLowerCase().includes(q) ||
+          u.country.toLowerCase().includes(q) ||
+          u.city.toLowerCase().includes(q) ||
+          u.deviceModel.toLowerCase().includes(q)
+        );
+      }
+      renderUserTable(list);
     }
 
     function renderUserTable(users) {
@@ -684,14 +967,13 @@
         tbody.innerHTML = `
           <tr>
             <td colspan="6" class="py-10 text-center text-slate-500 font-mono text-xs">
-              Aucun utilisateur encore connecté. Dès qu'un user ouvre l'application, son appareil apparaîtra instantanément ici !
+              Aucun appareil ne correspond aux filtres sélectionnés. Dès qu'un user ouvre l'application, son appareil apparaîtra instantanément ici !
             </td>
           </tr>
         `;
         return;
       }
 
-      // Sort by launch count / recent
       users.forEach(u => {
         const flagName = getCountryLabel(u.country);
         const statusBadge = u.isNew && u.launchCount <= 1
@@ -728,21 +1010,6 @@
       });
     }
 
-    function filterUserTable() {
-      const q = document.getElementById('userSearchInput').value.toLowerCase().trim();
-      if (!q) {
-        renderUserTable(cachedUsersList);
-        return;
-      }
-      const filtered = cachedUsersList.filter(u => 
-        u.id.toLowerCase().includes(q) ||
-        u.country.toLowerCase().includes(q) ||
-        u.city.toLowerCase().includes(q) ||
-        u.deviceModel.toLowerCase().includes(q)
-      );
-      renderUserTable(filtered);
-    }
-
     function downloadCSV() {
       if (cachedUsersList.length === 0) {
         alert("Pas d'utilisateurs à exporter pour le moment.");
@@ -757,36 +1024,6 @@
       a.href = URL.createObjectURL(blob);
       a.download = `qareeb_users_cohort_${new Date().toISOString().slice(0, 10)}.csv`;
       a.click();
-    }
-
-    function updateCountryChart(sortedCountryEntries) {
-      const ctx = document.getElementById('countryInstallsChart').getContext('2d');
-      if (countryInstallsChart) countryInstallsChart.destroy();
-
-      const labels = sortedCountryEntries.map(([code]) => getCountryLabel(code));
-      const data = sortedCountryEntries.map(([, d]) => d.installs || d.sessions || 0);
-
-      countryInstallsChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: labels,
-          datasets: [{
-            label: 'Nouveaux Installs',
-            data: data,
-            backgroundColor: '#10b981',
-            borderRadius: 8
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { family: 'Outfit', size: 11 } } },
-            y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8', precision: 0 } }
-          }
-        }
-      });
     }
 
     function updateCohortChart(installs, returning) {
