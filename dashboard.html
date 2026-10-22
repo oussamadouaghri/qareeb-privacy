@@ -395,6 +395,202 @@
 
       </div>
 
+      <!-- ================= 1. TOP AI COMPANIONS LEADERBOARD ================= -->
+      <div class="glass-card rounded-3xl p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="text-xl">👑</span>
+              Classement des Filles (Top AI Companions Leaderboard)
+            </h2>
+            <p class="text-xs text-slate-400">Kula bnt ch7al 3liha l-i9bal, ch7al d les messages t-sefto liha w ch7al d les photos VIP t-debloquew</p>
+          </div>
+          <span class="text-xs font-mono text-pink-400 bg-pink-500/10 px-3 py-1 rounded-full border border-pink-500/20 font-bold">
+            Engagement & Conversion Desire
+          </span>
+        </div>
+
+        <div id="characterLeaderboardGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- ================= 2. HOURLY ACTIVITY HEATMAP & IN-APP RATINGS ================= -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- HOURLY ACTIVITY HEATMAP (2 COLUMNS) -->
+        <div class="glass-card rounded-3xl p-6 lg:col-span-2">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>🕒</span> Activité par Heure (Hourly Heatmap)
+              </h3>
+              <p class="text-xs text-slate-400">Au9at d dkhol f n-nhar w l-lil bach t3ref fo9ach tsift les notifications push</p>
+            </div>
+            <span class="text-[11px] font-mono font-bold text-cyan-300 bg-cyan-500/10 px-2.5 py-1 rounded-lg border border-cyan-500/20">
+              24 Heures (00h - 23h)
+            </span>
+          </div>
+
+          <div class="h-60 relative">
+            <canvas id="hourlyActivityChart"></canvas>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+            <span>Heure de Pic (Peak Hour): <b id="peakHourValue" class="text-pink-400 font-mono">--:00</b></span>
+            <span>Recommandation: <b class="text-emerald-400">Envoyer push 30min avant le pic</b></span>
+          </div>
+        </div>
+
+        <!-- IN-APP RATINGS & SATISFACTION (1 COLUMN) -->
+        <div class="glass-card rounded-3xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <span>⭐</span> Avis & Satisfaction
+              </h3>
+              <p class="text-xs text-slate-400">Notes données par les utilisateurs</p>
+            </div>
+          </div>
+
+          <!-- Overall Star Rating -->
+          <div class="flex items-center gap-4 p-4 rounded-2xl bg-slate-900/80 border border-white/5 mb-4">
+            <div class="text-4xl font-extrabold text-amber-400 font-mono" id="ratingAverageScore">5.0</div>
+            <div>
+              <div class="flex text-amber-400 text-sm">★★★★★</div>
+              <div class="text-xs text-slate-400 mt-0.5"><span id="ratingTotalReviews" class="font-bold text-white">0</span> avis enregistrés</div>
+            </div>
+          </div>
+
+          <!-- Star Progress Bars -->
+          <div class="space-y-2 text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <span class="w-10 text-slate-300">5 ★</span>
+              <div class="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div id="barStar5" class="h-full bg-amber-400 rounded-full" style="width: 100%"></div>
+              </div>
+              <span id="countStar5" class="w-6 text-right text-slate-400">0</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-10 text-slate-300">4 ★</span>
+              <div class="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div id="barStar4" class="h-full bg-amber-400/80 rounded-full" style="width: 0%"></div>
+              </div>
+              <span id="countStar4" class="w-6 text-right text-slate-400">0</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-10 text-slate-300">3 ★</span>
+              <div class="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div id="barStar3" class="h-full bg-amber-400/60 rounded-full" style="width: 0%"></div>
+              </div>
+              <span id="countStar3" class="w-6 text-right text-slate-400">0</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-10 text-slate-300">2 ★</span>
+              <div class="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div id="barStar2" class="h-full bg-rose-400/80 rounded-full" style="width: 0%"></div>
+              </div>
+              <span id="countStar2" class="w-6 text-right text-slate-400">0</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-10 text-slate-300">1 ★</span>
+              <div class="flex-1 h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div id="barStar1" class="h-full bg-rose-500 rounded-full" style="width: 0%"></div>
+              </div>
+              <span id="countStar1" class="w-6 text-right text-slate-400">0</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================= 3. INTERACTIVE REVENUE SIMULATOR & FORECASTER ================= -->
+      <div class="glass-card rounded-3xl p-6 relative overflow-hidden border border-emerald-500/20">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+              <span class="text-xl">🔮</span>
+              Simulateur de Croissance & Prévisions de Revenus (Revenue Forecaster)
+            </h2>
+            <p class="text-xs text-slate-400">Calculateur interactif: 7seb ch7al ghada t-dkhel l'app f n-nhar, f ch-har, w f l-3am 3la 7ssab l-traffic</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-semibold text-slate-300">Boost GCC (+35% eCPM)</span>
+            <input type="checkbox" id="simGccBoost" onchange="calculateForecast()" checked class="w-4 h-4 accent-pink-500 cursor-pointer" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          
+          <!-- SLIDERS CONTROLS -->
+          <div class="space-y-5">
+            <!-- Slider 1: DAU -->
+            <div>
+              <div class="flex justify-between items-center text-xs font-semibold mb-2">
+                <span class="text-slate-300">Utilisateurs Actifs par Jour (DAU):</span>
+                <span id="simDauLabel" class="text-pink-400 font-mono font-bold text-sm">2,500 users</span>
+              </div>
+              <input type="range" id="simDau" min="200" max="50000" step="200" value="2500" oninput="calculateForecast()"
+                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-pink-500" />
+              <div class="flex justify-between text-[10px] text-slate-500 mt-1 font-mono">
+                <span>200</span>
+                <span>10,000</span>
+                <span>25,000</span>
+                <span>50,000+</span>
+              </div>
+            </div>
+
+            <!-- Slider 2: Ads per user -->
+            <div>
+              <div class="flex justify-between items-center text-xs font-semibold mb-2">
+                <span class="text-slate-300">Annonces Vues par Session:</span>
+                <span id="simAdsLabel" class="text-cyan-400 font-mono font-bold text-sm">4.0 ads</span>
+              </div>
+              <input type="range" id="simAds" min="1" max="10" step="0.5" value="4" oninput="calculateForecast()"
+                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400" />
+            </div>
+
+            <!-- Slider 3: eCPM -->
+            <div>
+              <div class="flex justify-between items-center text-xs font-semibold mb-2">
+                <span class="text-slate-300">eCPM de Base (Moyenne Marché):</span>
+                <span id="simEcpmLabel" class="text-emerald-400 font-mono font-bold text-sm">$6.00</span>
+              </div>
+              <input type="range" id="simEcpm" min="1" max="25" step="0.5" value="6" oninput="calculateForecast()"
+                class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-400" />
+            </div>
+          </div>
+
+          <!-- FORECAST RESULTS DISPLAY -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            
+            <!-- DAILY -->
+            <div class="p-4 rounded-2xl bg-slate-900/90 border border-white/5 text-center space-y-1">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Par Jour (Daily)</span>
+              <div class="text-2xl font-extrabold text-white font-mono" id="simDailyUSD">$0.00</div>
+              <div class="text-xs font-semibold text-emerald-400 font-mono" id="simDailyMAD">0 MAD</div>
+            </div>
+
+            <!-- MONTHLY -->
+            <div class="p-4 rounded-2xl bg-gradient-to-br from-pink-950/40 to-slate-900/90 border border-pink-500/20 text-center space-y-1 shadow-lg shadow-pink-500/10">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-pink-400">Par Mois (Monthly)</span>
+              <div class="text-2xl font-extrabold text-white font-mono" id="simMonthlyUSD">$0.00</div>
+              <div class="text-xs font-semibold text-emerald-400 font-mono" id="simMonthlyMAD">0 MAD</div>
+              <div class="text-[10px] text-slate-400 font-mono" id="simMonthlySAR">0 SAR</div>
+            </div>
+
+            <!-- ANNUAL -->
+            <div class="p-4 rounded-2xl bg-slate-900/90 border border-white/5 text-center space-y-1">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Par An (Annual)</span>
+              <div class="text-2xl font-extrabold text-white font-mono" id="simAnnualUSD">$0.00</div>
+              <div class="text-xs font-semibold text-emerald-400 font-mono" id="simAnnualMAD">0 MAD</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
       <!-- ================= COUNTRY LEVEL BREAKDOWN TABLE ================= -->
       <div class="glass-card rounded-3xl p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -495,6 +691,7 @@
     let selectedFormatFilter = 'ALL';
 
     let cohortRatioChart = null;
+    let hourlyActivityChart = null;
     let cachedUsersList = [];
     let cachedLiveStats = {};
     let autoRefreshInterval = null;
@@ -753,6 +950,16 @@
 
       // Render Country Table
       renderCountryBreakdown(fields);
+
+      // Render Top AI Companions Leaderboard
+      renderCharacterLeaderboard(fields);
+
+      // Render Hourly Traffic & Ratings
+      renderHourlyActivity(fields);
+      renderRatings(fields);
+
+      // Calculate Revenue Forecast
+      calculateForecast();
 
       // Render Cohort Chart
       updateCohortChart(newInstalls, returning);
@@ -1024,6 +1231,277 @@
       a.href = URL.createObjectURL(blob);
       a.download = `qareeb_users_cohort_${new Date().toISOString().slice(0, 10)}.csv`;
       a.click();
+    }
+
+    // ==========================================
+    // 1. TOP AI COMPANIONS LEADERBOARD
+    // ==========================================
+    function renderCharacterLeaderboard(fields) {
+      const container = document.getElementById('characterLeaderboardGrid');
+      if (!container) return;
+
+      const companions = [
+        { id: 'sarah', name: 'سارة (Sarah)', city: 'الرياض', tag: 'Délice Doux & Café', avatarGrad: 'from-pink-500 to-rose-600', emoji: '✨' },
+        { id: 'dalal', name: 'دلال (Dalal)', city: 'دبي', tag: 'Glamour & Luxe JBR', avatarGrad: 'from-amber-400 to-orange-600', emoji: '🥂' },
+        { id: 'shahad', name: 'شهد (Shahad)', city: 'جدة', tag: 'Bord de Mer & Charme', avatarGrad: 'from-cyan-400 to-blue-600', emoji: '🌸' },
+        { id: 'alanoud', name: 'العنود (Alanoud)', city: 'الرياض', tag: 'Élégance Diriyah', avatarGrad: 'from-purple-500 to-indigo-600', emoji: '💎' },
+        { id: 'lama', name: 'لمى (Lama)', city: 'الخبر', tag: 'Romance & Tendresse', avatarGrad: 'from-rose-400 to-pink-600', emoji: '💖' },
+        { id: 'maryam', name: 'مريم (Maryam)', city: 'الدوحة', tag: 'Charisme & The Pearl', avatarGrad: 'from-teal-400 to-emerald-600', emoji: '🕊️' },
+        { id: 'haya', name: 'هيا (Haya)', city: 'الرياض', tag: 'Joie & Rire Pétillant', avatarGrad: 'from-fuchsia-400 to-pink-600', emoji: '🥰' },
+        { id: 'joud', name: 'جود (Joud)', city: 'دبي', tag: 'Fashionista Downtown', avatarGrad: 'from-violet-500 to-purple-700', emoji: '💄' },
+        { id: 'dana', name: 'دانه (Dana)', city: 'المنامة', tag: 'Douceur Côtière', avatarGrad: 'from-sky-400 to-indigo-500', emoji: '🌊' },
+        { id: 'reem', name: 'ريم (Reem)', city: 'الكويت', tag: 'Sensibilité & Poésie', avatarGrad: 'from-yellow-400 to-amber-600', emoji: '⭐' }
+      ];
+
+      // Extract telemetry counts
+      const stats = companions.map(c => {
+        const msgs = parseVal(fields[`char_${c.id}_messages`]) || 0;
+        const photos = parseVal(fields[`char_${c.id}_photos`]) || 0;
+        const score = msgs + (photos * 5); // Photos count 5x engagement
+        return { ...c, msgs, photos, score };
+      });
+
+      // Sort by score descending
+      stats.sort((a, b) => b.score - a.score || b.msgs - a.msgs);
+
+      const maxScore = Math.max(...stats.map(s => s.score), 1);
+
+      let html = '';
+      stats.forEach((c, index) => {
+        const rank = index + 1;
+        let rankBadge = '';
+        let borderClass = 'border-white/5 hover:border-pink-500/30';
+        
+        if (rank === 1) {
+          rankBadge = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse">👑 #1 Top Crush</span>`;
+          borderClass = 'border-amber-500/40 bg-gradient-to-br from-amber-950/20 to-slate-900/90 shadow-lg shadow-amber-500/5';
+        } else if (rank === 2) {
+          rankBadge = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-300/20 text-slate-200 border border-slate-300/40">🥈 #2</span>`;
+        } else if (rank === 3) {
+          rankBadge = `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-orange-500/20 text-orange-300 border border-orange-500/40">🥉 #3</span>`;
+        } else {
+          rankBadge = `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-slate-400">#${rank}</span>`;
+        }
+
+        const pct = Math.max(Math.round((c.score / maxScore) * 100), c.score > 0 ? 8 : 4);
+
+        html += `
+          <div class="glass-card rounded-2xl p-4 transition-all duration-300 ${borderClass} flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr ${c.avatarGrad} flex items-center justify-center text-lg font-bold shadow-md shadow-black/40 text-white">
+                    ${c.emoji}
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-white text-sm flex items-center gap-1.5 font-sans">
+                      ${c.name}
+                    </h4>
+                    <p class="text-[11px] text-slate-400 font-medium">📍 ${c.city} • <span class="text-pink-400/90">${c.tag}</span></p>
+                  </div>
+                </div>
+                ${rankBadge}
+              </div>
+
+              <div class="grid grid-cols-2 gap-2 my-3 text-xs font-mono">
+                <div class="p-2 rounded-xl bg-slate-900/80 border border-white/5">
+                  <span class="text-[10px] text-slate-400 block">💬 Messages</span>
+                  <span class="font-bold text-white text-sm">${c.msgs.toLocaleString()}</span>
+                </div>
+                <div class="p-2 rounded-xl bg-slate-900/80 border border-white/5">
+                  <span class="text-[10px] text-slate-400 block">📸 Photos VIP</span>
+                  <span class="font-bold text-pink-400 text-sm">${c.photos.toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 mb-1">
+                <span>Indice d'Attraction</span>
+                <span class="text-pink-400 font-bold">${c.score} pts</span>
+              </div>
+              <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-pink-500 to-indigo-500 rounded-full" style="width: ${pct}%"></div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    // ==========================================
+    // 2. HOURLY ACTIVITY HEATMAP
+    // ==========================================
+    function renderHourlyActivity(fields) {
+      const hours = Array.from({ length: 24 }, (_, i) => i);
+      const labels = hours.map(h => `${String(h).padStart(2, '0')}h`);
+      const data = hours.map(h => {
+        const key = `traffic_hour_${String(h).padStart(2, '0')}`;
+        return parseVal(fields[key]) || 0;
+      });
+
+      let maxVal = -1;
+      let peakHour = 22; // default 22h
+      data.forEach((val, idx) => {
+        if (val > maxVal && val > 0) {
+          maxVal = val;
+          peakHour = idx;
+        }
+      });
+
+      const peakEl = document.getElementById('peakHourValue');
+      if (peakEl) {
+        peakEl.textContent = maxVal > 0 ? `${String(peakHour).padStart(2, '0')}:00 (${maxVal} msgs)` : "22:00 (Soirée)";
+      }
+
+      const canvas = document.getElementById('hourlyActivityChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (hourlyActivityChart) hourlyActivityChart.destroy();
+
+      hourlyActivityChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Activité (Messages envoyés)',
+            data: data,
+            backgroundColor: hours.map(h => h === peakHour && maxVal > 0 ? '#ec4899' : 'rgba(56, 189, 248, 0.45)'),
+            borderColor: hours.map(h => h === peakHour && maxVal > 0 ? '#f43f5e' : 'rgba(56, 189, 248, 0.9)'),
+            borderWidth: 1.5,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#0f172a',
+              titleColor: '#f1f5f9',
+              bodyColor: '#38bdf8',
+              borderColor: 'rgba(255,255,255,0.1)',
+              borderWidth: 1,
+              callbacks: {
+                label: function(context) {
+                  return ` ${context.parsed.y} messages échangés`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: '#94a3b8', font: { family: 'Outfit', size: 10 } }
+            },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: '#94a3b8', stepSize: 1, beginAtZero: true, font: { family: 'Outfit', size: 10 } }
+            }
+          }
+        }
+      });
+    }
+
+    // ==========================================
+    // 3. IN-APP RATINGS & SATISFACTION
+    // ==========================================
+    function renderRatings(fields) {
+      const totalCount = parseVal(fields['ratings_count']) || 0;
+      const totalStars = parseVal(fields['ratings_stars_total']) || 0;
+      const c5 = parseVal(fields['ratings_5_stars']) || 0;
+      const c4 = parseVal(fields['ratings_4_stars']) || 0;
+      const c3 = parseVal(fields['ratings_3_stars']) || 0;
+      const c2 = parseVal(fields['ratings_2_stars']) || 0;
+      const c1 = parseVal(fields['ratings_1_stars']) || 0;
+
+      const avg = totalCount > 0 ? (totalStars / totalCount).toFixed(1) : "5.0";
+      const elAvg = document.getElementById('ratingAverageScore');
+      const elTotal = document.getElementById('ratingTotalReviews');
+      if (elAvg) elAvg.textContent = avg;
+      if (elTotal) elTotal.textContent = totalCount.toLocaleString();
+
+      const totalForBar = totalCount > 0 ? totalCount : 1;
+      const p5 = totalCount > 0 ? Math.round((c5 / totalForBar) * 100) : 100;
+      const p4 = totalCount > 0 ? Math.round((c4 / totalForBar) * 100) : 0;
+      const p3 = totalCount > 0 ? Math.round((c3 / totalForBar) * 100) : 0;
+      const p2 = totalCount > 0 ? Math.round((c2 / totalForBar) * 100) : 0;
+      const p1 = totalCount > 0 ? Math.round((c1 / totalForBar) * 100) : 0;
+
+      const setBar = (idBar, idCount, pct, cnt) => {
+        const b = document.getElementById(idBar);
+        const c = document.getElementById(idCount);
+        if (b) b.style.width = `${pct}%`;
+        if (c) c.textContent = cnt;
+      };
+
+      setBar('barStar5', 'countStar5', p5, c5);
+      setBar('barStar4', 'countStar4', p4, c4);
+      setBar('barStar3', 'countStar3', p3, c3);
+      setBar('barStar2', 'countStar2', p2, c2);
+      setBar('barStar1', 'countStar1', p1, c1);
+    }
+
+    // ==========================================
+    // 4. INTERACTIVE REVENUE SIMULATOR
+    // ==========================================
+    function calculateForecast() {
+      const dauInput = document.getElementById('simDau');
+      const adsInput = document.getElementById('simAds');
+      const ecpmInput = document.getElementById('simEcpm');
+      const gccBoost = document.getElementById('simGccBoost')?.checked ?? true;
+
+      if (!dauInput || !adsInput || !ecpmInput) return;
+
+      const dau = parseFloat(dauInput.value) || 2500;
+      const ads = parseFloat(adsInput.value) || 4;
+      let ecpm = parseFloat(ecpmInput.value) || 6.0;
+
+      // Update control labels
+      const dauLabel = document.getElementById('simDauLabel');
+      const adsLabel = document.getElementById('simAdsLabel');
+      const ecpmLabel = document.getElementById('simEcpmLabel');
+
+      if (dauLabel) dauLabel.textContent = `${dau.toLocaleString()} users`;
+      if (adsLabel) adsLabel.textContent = `${ads.toFixed(1)} ads`;
+      if (ecpmLabel) ecpmLabel.textContent = `$${ecpm.toFixed(2)}`;
+
+      if (gccBoost) {
+        ecpm = ecpm * 1.35; // GCC traffic pays higher eCPMs
+      }
+
+      // Calculations
+      const dailyImpressions = dau * ads;
+      const dailyUSD = (dailyImpressions / 1000) * ecpm;
+      const dailyMAD = dailyUSD * 10.05;
+
+      const monthlyUSD = dailyUSD * 30.5;
+      const monthlyMAD = dailyMAD * 30.5;
+      const monthlySAR = monthlyUSD * 3.75;
+
+      const annualUSD = dailyUSD * 365;
+      const annualMAD = dailyMAD * 365;
+
+      // Render Outputs
+      const elDailyUSD = document.getElementById('simDailyUSD');
+      const elDailyMAD = document.getElementById('simDailyMAD');
+      if (elDailyUSD) elDailyUSD.textContent = `$${dailyUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (elDailyMAD) elDailyMAD.textContent = `≈ ${Math.round(dailyMAD).toLocaleString()} MAD`;
+
+      const elMonthlyUSD = document.getElementById('simMonthlyUSD');
+      const elMonthlyMAD = document.getElementById('simMonthlyMAD');
+      const elMonthlySAR = document.getElementById('simMonthlySAR');
+      if (elMonthlyUSD) elMonthlyUSD.textContent = `$${monthlyUSD.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      if (elMonthlyMAD) elMonthlyMAD.textContent = `≈ ${Math.round(monthlyMAD).toLocaleString()} MAD`;
+      if (elMonthlySAR) elMonthlySAR.textContent = `≈ ${Math.round(monthlySAR).toLocaleString()} SAR`;
+
+      const elAnnualUSD = document.getElementById('simAnnualUSD');
+      const elAnnualMAD = document.getElementById('simAnnualMAD');
+      if (elAnnualUSD) elAnnualUSD.textContent = `$${annualUSD.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+      if (elAnnualMAD) elAnnualMAD.textContent = `≈ ${Math.round(annualMAD).toLocaleString()} MAD`;
     }
 
     function updateCohortChart(installs, returning) {
