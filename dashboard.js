@@ -7,7 +7,7 @@ const BASE = `https://firestore.googleapis.com/v1/projects/${PROJECT}/databases/
 const $ = id => document.getElementById(id);
 const esc = text => String(text ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt = value => value === null ? '—' : Number(value).toLocaleString('fr-FR',{maximumFractionDigits:0});
-const money = value => value === null ? '—' : new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:3}).format(value);
+const money = value => value === null ? '—' : new Intl.NumberFormat('fr-MA',{style:'currency',currency:'MAD',maximumFractionDigits:2}).format(value);
 const pct = value => value === null ? '—' : (value*100).toFixed(1)+' %';
 const pages = {
  overview:['Vue d’ensemble','L’essentiel de votre activité, au même endroit.'],
@@ -113,20 +113,20 @@ $('format').onchange=()=>{state.format=$('format').value;renderAds();};
 $('country').onchange=()=>{state.country=$('country').value;state.page=1;renderAudience();};
 $('search').oninput=()=>{state.page=1;renderUsers();};
 $('previous').onclick=()=>{state.page--;renderUsers();};$('next').onclick=()=>{state.page++;renderUsers();};
-function render(){
- const f=state.fields,a=M.ads(f),sessions=M.number(f.total_sessions),first=M.number(f.total_installs),returning=M.number(f.total_returning);
- $('overviewKpis').innerHTML=kpi('Revenu estimé · USD',money(a.revenue),'Tous les formats · Événements collectés')+kpi('Sessions',fmt(sessions),'Ouvertures cumulées de l’application')+kpi('Premières ouvertures',fmt(first),'Première ouverture suivie par appareil')+kpi('Messages envoyés',fmt(M.number(f.total_messages_sent)),'Activité pendant la période');
- const max=Math.max(a.requests,a.matched,a.impressions,1);
- $('adFunnel').innerHTML=[['Demandes',a.requests],['Chargés',a.matched],['Impressions',a.impressions]].map(([name,n])=>`<div class="funnel-row"><span>${name}</span><div class="track"><span style="width:${n/max*100}%"></span></div><b>${fmt(n)}</b></div>`).join('')+`<p class="footnote">Match ${pct(a.match)} · Show ${pct(a.show)}${a.impressions>a.matched?' · Historique incohérent : plus d’impressions que de chargements.':''}</p>`;
- const total=first+returning;
- $('sessionSplit').innerHTML=`<div class="split-total">${fmt(total)} <small>ouvertures classées</small></div><div class="stacked"><span style="width:${total?first/total*100:0}%"></span><span style="width:${total?returning/total*100:0}%"></span></div><div class="legend-row"><span>Premières ouvertures</span><b>${fmt(first)}</b></div><div class="legend-row"><span>Ouvertures suivantes</span><b>${fmt(returning)}</b></div>`;
- renderAds();renderAudience();renderEngagement();forecast();
-}
-function renderAds(){
- const f=state.fields,a=M.ads(f,state.format);
- $('adKpis').innerHTML=kpi('Revenu estimé · USD',money(a.revenue),'Revenu du format sélectionné')+kpi('Impressions',fmt(a.impressions),'Affichages enregistrés')+kpi('eCPM · USD',money(a.ecpm),'Revenu / impressions × 1 000')+kpi('Taux de clic',pct(a.ctr),`${fmt(a.clicks)} clics · Même périmètre`);
- $('formatsBody').innerHTML=formats.filter(([id])=>state.format==='ALL'||id===state.format).map(([id,label])=>{const r=M.ads(f,id);return `<tr><td>${label}</td>${[fmt(r.requests),fmt(r.matched),fmt(r.impressions),fmt(r.clicks),pct(r.match),pct(r.show),pct(r.ctr),money(r.revenue),money(r.ecpm)].map(v=>`<td>${v}</td>`).join('')}</tr>`;}).join('');
-}
+ function render(){
+  const f=state.fields,a=M.ads(f),sessions=M.number(f.total_sessions),first=M.number(f.total_installs),returning=M.number(f.total_returning);
+  $('overviewKpis').innerHTML=kpi('Revenu estimé · MAD',money(a.revenue),'Tous les formats · Événements collectés')+kpi('Sessions',fmt(sessions),'Ouvertures cumulées de l’application')+kpi('Premières ouvertures',fmt(first),'Première ouverture suivie par appareil')+kpi('Messages envoyés',fmt(M.number(f.total_messages_sent)),'Activité pendant la période');
+  const max=Math.max(a.requests,a.matched,a.impressions,1);
+  $('adFunnel').innerHTML=[['Demandes',a.requests],['Chargés',a.matched],['Impressions',a.impressions]].map(([name,n])=>`<div class="funnel-row"><span>${name}</span><div class="track"><span style="width:${n/max*100}%"></span></div><b>${fmt(n)}</b></div>`).join('')+`<p class="footnote">Match ${pct(a.match)} · Show ${pct(a.show)}${a.impressions>a.matched?' · Historique incohérent : plus d’impressions que de chargements.':''}</p>`;
+  const total=first+returning;
+  $('sessionSplit').innerHTML=`<div class="split-total">${fmt(total)} <small>ouvertures classées</small></div><div class="stacked"><span style="width:${total?first/total*100:0}%"></span><span style="width:${total?returning/total*100:0}%"></span></div><div class="legend-row"><span>Premières ouvertures</span><b>${fmt(first)}</b></div><div class="legend-row"><span>Ouvertures suivantes</span><b>${fmt(returning)}</b></div>`;
+  renderAds();renderAudience();renderEngagement();forecast();
+ }
+ function renderAds(){
+  const f=state.fields,a=M.ads(f,state.format);
+  $('adKpis').innerHTML=kpi('Revenu estimé · MAD',money(a.revenue),'Revenu du format sélectionné')+kpi('Impressions',fmt(a.impressions),'Affichages enregistrés')+kpi('eCPM · MAD',money(a.ecpm),'Revenu / impressions × 1 000')+kpi('Taux de clic',pct(a.ctr),`${fmt(a.clicks)} clics · Même périmètre`);
+  $('formatsBody').innerHTML=formats.filter(([id])=>state.format==='ALL'||id===state.format).map(([id,label])=>{const r=M.ads(f,id);return `<tr><td>${label}</td>${[fmt(r.requests),fmt(r.matched),fmt(r.impressions),fmt(r.clicks),pct(r.match),pct(r.show),pct(r.ctr),money(r.revenue),money(r.ecpm)].map(v=>`<td>${v}</td>`).join('')}</tr>`;}).join('');
+ }
 function renderAudience(){
  const rows=M.countries(state.fields),old=state.country;
  const codes=[...new Set([...rows.map(r=>r.code),...state.users.map(u=>u.country),...(old==='ALL'?[]:[old])])].sort();
